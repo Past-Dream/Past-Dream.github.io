@@ -1,13 +1,12 @@
 ---
 layout: post
 title:  "Hello World!"
-date:   2024-08-04 12:00:00 +0800
-categories: TaoismACA
+date:   2024-04-22 12:00:00 +0800
+categories: 随笔
 ---
 
-# Hello World!
 
-大家好！这里是ShuHaoZhang@2024的个人主页的第一篇博客，以此纪念本网页的搭建。我需要在这里感谢David Darnes提供的主题。同时，我也想对您的访问表达衷心的感谢。
+大家好！这里是ShuHaoZhang@2024的个人主页的第一篇博客，以此纪念本网页的搭建。我需要在这里感谢David Darnes提供的主题，感谢github提供的支持。同时，我也想对您的访问表达衷心的感谢。
 
 由于个人能力有限，本网页一定存在许多不足，望您见谅。
 
