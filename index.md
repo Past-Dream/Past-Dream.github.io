@@ -7,4 +7,5 @@ feature_image: "https://picsum.photos/1300/400?image=989"
 excerpt: "ShuHaoZhang@2024"
 ---
 
-# 感谢您的访问！
+### 感谢您的访问！
+### 祝您生活愉快！
