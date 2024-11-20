@@ -1,3 +1,28 @@
 site_name: Past Dream
-theme: 
+nav:
+  - Start:
+    - Home: index.md
+    - About: about.md
+    - Contact: contact.md
+  - ICS_PA:
+    - Overview: ICS_PA/ICS_PA_intro.md
+theme:
   name: material
+  language: zh
+  palette:
+    primary: blue
+  icon:
+    repo: fontawesome/brands/github-alt
+  features:
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - search.suggest
+  - search.highlight
+  - search.share
+  font:
+    text: Noto Sans
+    code: Source Code Pro
+plugins:
+- search
+- minify:
+    minify_html: true
