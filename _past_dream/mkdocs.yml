@@ -1,4 +1,7 @@
 site_name: Past Dream
 site_url: https://pastdream.github.io/
+nav:
+    - Home: index.md
+    - ICS: ics_pre.md
 theme:
   name: material
