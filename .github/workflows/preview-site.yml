@@ -1,0 +1,48 @@
+# modified from https://github.com/tiangolo/fastapi/blob/master/.github/workflows/preview-docs.yml
+name: Deploy to Netlify
+
+on:
+  workflow_run:
+    workflows:
+      - Preview Site Wrapper
+    types: 
+      - completed
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  deploy-to-netlify:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+   # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download Artifact Docs
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: preview-site-wrapper.yml
+          run_id: ${{ github.event.workflow_run.id }}
+          name: site-zip
+      - name: Unzip Site
+        run: |
+          rm -rf ./site
+          unzip site.zip
+          rm -f site.zip
+      - name: Deploy to Netlify
+        id: netlify
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: 'site'
+          production-deploy: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          enable-commit-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Comment Deploy
+        uses: ./.github/actions/comment-docs-preview-in-pr
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          deploy_url: "${{ steps.netlify.outputs.deploy-url }}"
