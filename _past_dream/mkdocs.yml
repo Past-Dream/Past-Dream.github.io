@@ -5,9 +5,11 @@ nav:
     - Home: index.md
     - ICS: 
         - ICS: ics/ics_pre.md
-        - ICS_PA: 
-          - pre: ics/ics_pa_pre.md
-          - PA 4-2 来自外部的声音: ics/pa/ics_pa-4-2.md
+        - ICS_PA(x86): 
+          - 在PA开始之前（x86）: ics/ics_pa_pre.md
+          - PA 4-1 来自外部的声音: ics/pa/ics_pa-4-1.md
+          - PA 4-2 冯诺依曼的构想: ics/pa/ics_pa-4-2.md
+          - PA 4-3 编写不朽的传奇: ics/pa/ics_pa-4-3.md
   
 markdown_extensions:
   - pymdownx.highlight:
