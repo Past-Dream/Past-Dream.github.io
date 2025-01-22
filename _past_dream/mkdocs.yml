@@ -1,7 +1,10 @@
 site_name: Past Dream
+site_description: Past Dream's blog
 site_url: https://pastdream.github.io/
 nav:
     - Home: index.md
-    - ICS: ics_pre.md
+    - ICS: 
+        - ICS: ics/ics_pre.md
+        - ICS_PA: ics/ics_pa_pre.md
 theme:
   name: material

@@ -2,10 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://pastdream.github.io/</loc>
-         <lastmod>2025-01-21</lastmod>
+         <lastmod>2025-01-22</lastmod>
     </url>
     <url>
-         <loc>https://pastdream.github.io/ics_pre/</loc>
-         <lastmod>2025-01-21</lastmod>
+         <loc>https://pastdream.github.io/ics/ics_pa_pre/</loc>
+         <lastmod>2025-01-22</lastmod>
+    </url>
+    <url>
+         <loc>https://pastdream.github.io/ics/ics_pre/</loc>
+         <lastmod>2025-01-22</lastmod>
     </url>
 </urlset>
