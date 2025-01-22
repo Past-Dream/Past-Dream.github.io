@@ -7,7 +7,7 @@ nav:
         - ICS: ics/ics_pre.md
         - ICS_PA: 
           - pre: ics/ics_pa_pre.md
-          - PA4-2: ics/pa/ics_pa-4-2.md
+          - PA 4-2 来自外部的声音: ics/pa/ics_pa-4-2.md
   
 markdown_extensions:
   - pymdownx.highlight:

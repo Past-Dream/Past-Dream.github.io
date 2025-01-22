@@ -22,7 +22,7 @@
     
     
       
-        <title>PA4-2 - Past Dream</title>
+        <title>PA 4-2 来自外部的声音 - Past Dream</title>
       
     
     
@@ -139,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              PA4-2
+              PA 4-2 来自外部的声音
             
           </span>
         </div>
@@ -438,7 +438,7 @@
           
   
   <span class="md-ellipsis">
-    PA4-2
+    PA 4-2 来自外部的声音
   </span>
   
 
@@ -449,7 +449,7 @@
         
   
   <span class="md-ellipsis">
-    PA4-2
+    PA 4-2 来自外部的声音
   </span>
   
 
@@ -471,27 +471,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#4-232" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      §4-2.3.2 通过硬盘加载程序
+      串口的模拟
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-233" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      §4-2.3.3 完成键盘的模拟
+      硬盘的加载
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-234-vgammio" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      §4-2.3.4 实现VGA的MMIO
+      键盘的交互
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      缤纷的世界
     </span>
   </a>
   
@@ -548,27 +557,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#4-232" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      §4-2.3.2 通过硬盘加载程序
+      串口的模拟
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-233" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      §4-2.3.3 完成键盘的模拟
+      硬盘的加载
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-234-vgammio" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      §4-2.3.4 实现VGA的MMIO
+      键盘的交互
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      缤纷的世界
     </span>
   </a>
   
@@ -591,6 +609,8 @@
 
 <h1 id="pa-4-2-io">PA 4-2 外设与I/O——来自外部的声音</h1>
 <p>在之前的几个阶段中，我们模拟了CPU的运算、指令执行；存储管理；异常和中断响应的相关功能。我们的模拟器功能已日趋完备！现在，我们可以向一台完整的计算机迈出最后的一步了。我们要在模拟器中增加与外部设备进行I/O的功能。如此我们的模拟器就能够实现包括键盘输入、屏幕输出等功能，能够与用户互动起来，完成除了运算以外更加丰富的功能。</p>
+<p><img alt="PA-4-2" src="../pa_pic/pa-4-2.png" /></p>
+<h3 id="_1">串口的模拟</h3>
 <div class="admonition info">
 <p class="admonition-title">完成串口的模拟</p>
 <ol>
@@ -670,7 +690,9 @@
 </code></pre></div>
 以上，我们完成了串口的模拟，在<code>make test_pa-4-2</code>运行<code>hello-inline</code>测试用例，对比实现串口前后的输出内容的区别。可以发现，输出内容前的<code>nemu trap output:</code>标记消失了，这标志着我们通过了PA-4-2的第一阶段。
 <img alt="串口输出" src="../pa_pic/4-2-hello_inline.png" /></p>
-<h4 id="4-232">§4-2.3.2 通过硬盘加载程序</h4>
+<h3 id="_2">硬盘的加载</h3>
+<div class="admonition info">
+<p class="admonition-title">实现从硬盘加载程序</p>
 <ol>
 <li>
 <p>在<code>include/config.h</code>中定义宏<code>HAS_DEVICE_ID</code>并<code>make clean</code>；</p>
@@ -682,7 +704,10 @@
 <p>通过<code>make test_pa-4-2</code>执行测试用例，验证加载过程是否正确。</p>
 </li>
 </ol>
-<h4 id="4-233">§4-2.3.3 完成键盘的模拟</h4>
+</div>
+<h3 id="_3">键盘的交互</h3>
+<div class="admonition info">
+<p class="admonition-title">完成键盘的模拟</p>
 <ol>
 <li>
 <p>在<code>include/config.h</code>中定义宏<code>HAS_DEVICE_KEYBOARD</code>并<code>make clean</code>；</p>
@@ -691,7 +716,10 @@
 <p>通过<code>make test_pa-4-2</code>运行<code>echo</code>测试用例；（可以通过关闭窗口或在控制台Ctrl-c的方式退出<code>echo</code>）</p>
 </li>
 </ol>
-<h4 id="4-234-vgammio">§4-2.3.4 实现VGA的MMIO</h4>
+</div>
+<h3 id="_4">缤纷的世界</h3>
+<div class="admonition info">
+<p class="admonition-title">实现VGA的MMIO</p>
 <ol>
 <li>
 <p>在<code>include/config.h</code>中定义宏<code>HAS_DEVICE_VGA</code>；</p>
@@ -706,6 +734,7 @@
 <p>通过<code>make test_pa-4-2</code>执行测试用例，观察输出测试颜色信息，并通过<code>video_mapping_read_test()</code>。</p>
 </li>
 </ol>
+</div>
 
 
 

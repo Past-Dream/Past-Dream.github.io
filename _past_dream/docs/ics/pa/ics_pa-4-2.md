@@ -2,6 +2,10 @@
 
 在之前的几个阶段中，我们模拟了CPU的运算、指令执行；存储管理；异常和中断响应的相关功能。我们的模拟器功能已日趋完备！现在，我们可以向一台完整的计算机迈出最后的一步了。我们要在模拟器中增加与外部设备进行I/O的功能。如此我们的模拟器就能够实现包括键盘输入、屏幕输出等功能，能够与用户互动起来，完成除了运算以外更加丰富的功能。
 
+![PA-4-2](pa_pic/pa-4-2.png)
+
+### 串口的模拟
+
 !!! info "完成串口的模拟"
     1. 在`include/config.h`中定义宏`HAS_DEVICE_SERIAL`并`make clean`；
     2. 实现`in`和`out`指令；
@@ -89,26 +93,27 @@ void serial_printc(char ch)
 以上，我们完成了串口的模拟，在`make test_pa-4-2`运行`hello-inline`测试用例，对比实现串口前后的输出内容的区别。可以发现，输出内容前的```nemu trap output: ```标记消失了，这标志着我们通过了PA-4-2的第一阶段。
 ![串口输出](pa_pic/4-2-hello_inline.png)
 
-#### §4-2.3.2 通过硬盘加载程序
+### 硬盘的加载
 
-1. 在`include/config.h`中定义宏`HAS_DEVICE_ID`并`make clean`；
+!!! info "实现从硬盘加载程序"
+    1. 在`include/config.h`中定义宏`HAS_DEVICE_ID`并`make clean`；
 
-2. 修改Kernel中的`loader()`，使其通过`ide_read()`和`ide_write()`接口实现从模拟硬盘加载用户程序；
+    2. 修改Kernel中的`loader()`，使其通过`ide_read()`和`ide_write()`接口实现从模拟硬盘加载用户程序；
 
-3. 通过`make test_pa-4-2`执行测试用例，验证加载过程是否正确。
+    3. 通过`make test_pa-4-2`执行测试用例，验证加载过程是否正确。
 
-#### §4-2.3.3 完成键盘的模拟
+### 键盘的交互
+!!! info "完成键盘的模拟"
+    1. 在`include/config.h`中定义宏`HAS_DEVICE_KEYBOARD`并`make clean`；
 
-1. 在`include/config.h`中定义宏`HAS_DEVICE_KEYBOARD`并`make clean`；
+    2. 通过`make test_pa-4-2`运行`echo`测试用例；（可以通过关闭窗口或在控制台Ctrl-c的方式退出`echo`）
 
-2. 通过`make test_pa-4-2`运行`echo`测试用例；（可以通过关闭窗口或在控制台Ctrl-c的方式退出`echo`）
+### 缤纷的世界
+!!! info "实现VGA的MMIO"
+    1. 在`include/config.h`中定义宏`HAS_DEVICE_VGA`；
 
-#### §4-2.3.4 实现VGA的MMIO
+    2. 在`nemu/src/memory/memory.c`中添加`mm_io`判断和对应的读写操作；
 
-1. 在`include/config.h`中定义宏`HAS_DEVICE_VGA`；
+    3. 在`kernel/src/memory/vmem.c`中完成显存的恒等映射；
 
-2. 在`nemu/src/memory/memory.c`中添加`mm_io`判断和对应的读写操作；
-
-3. 在`kernel/src/memory/vmem.c`中完成显存的恒等映射；
-
-4. 通过`make test_pa-4-2`执行测试用例，观察输出测试颜色信息，并通过`video_mapping_read_test()`。
+    4. 通过`make test_pa-4-2`执行测试用例，观察输出测试颜色信息，并通过`video_mapping_read_test()`。
