@@ -17,7 +17,6 @@ theme:
   name: material
   features:
     - navigation.tabs # 启用顶级部分将呈现在上面视口标题下方的菜单层中，但在移动设备上保持原样
-    - navigation.tabs.sticky # 可选：启用粘性选项卡后，导航选项卡将锁定在标题下方，并在向下滚动时始终保持可见
   icon:
     admonition:
       note: octicons/tag-16
