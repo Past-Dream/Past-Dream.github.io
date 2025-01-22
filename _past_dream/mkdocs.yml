@@ -6,14 +6,18 @@ nav:
     - ICS: 
         - ICS: ics/ics_pre.md
         - ICS_PA: ics/ics_pa_pre.md
-theme:
-  name: material
+  
 
 markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 theme:
+  name: material
   icon:
     admonition:
       note: octicons/tag-16
