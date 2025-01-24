@@ -363,6 +363,136 @@
                 
   
   
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ICS_理论试题选解
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            ICS_理论试题选解
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第4章 程序的链接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第6章 层次结构存储系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第7章 异常控制流
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第8章 I/O操作的实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -378,10 +508,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -392,8 +522,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             ICS_PA(x86)
           </label>
@@ -717,6 +847,13 @@
 <h1 id="pa-4-2-io">PA 4-2 外设与I/O——冯诺依曼的构想</h1>
 <p>在之前的几个阶段中，我们模拟了CPU的运算、指令执行；存储管理；异常和中断响应的相关功能。我们的模拟器功能已日趋完备！现在，我们可以向一台完整的计算机迈出最后的一步了。我们要在模拟器中增加与外部设备进行I/O的功能。如此我们的模拟器就能够实现包括键盘输入、屏幕输出等功能，能够与用户互动起来，完成除了运算以外更加丰富的功能。</p>
 <p><img alt="PA-4-2" src="../pa_pic/pa-4-2.png" /></p>
+<div class="admonition question">
+<p class="admonition-title">冯诺依曼的构想？</p>
+<p>冯·诺依曼体系结构是现代计算机的基础，现在大多计算机仍是冯·诺依曼计算机的组织结构上作了一些改进。冯·诺依曼也因此被人们称为“计算机之父”。
+如你所见，尽管我们在理论课程学习的第一章就学习了冯·诺依曼体系结构，但是时至今日我们的NEMU才将其五大组成部分都实现模拟。
+将指令和数据同时存放在存储器中，是冯·诺依曼计算机方案的特点之一。在这一体系下我们认为计算机由控制器、运算器、存储器、输入设备、输出设备五部分组成。我们在很早就实现了CPU、内存、寄存器等部分，但是还没有实现I/O设备。
+在本阶段中，我们将实现I/O设备，使NEMU能够与用户进行交互，完成更加丰富的功能，从而实现一个完整的计算机，因此我们称这一阶段为“冯诺依曼的构想”。</p>
+</div>
 <h3 id="_1">串口的模拟</h3>
 <div class="admonition info">
 <p class="admonition-title">完成串口的模拟</p>
@@ -733,8 +870,7 @@
 <p><img alt="OUT_i386" src="../pa_pic/4-2-out.png" /></p>
 <p>通过与ref_opcode进行对比，我们容易知道需要我们实现的为
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">   </span><span class="cm">/* 0xec - 0xef*/</span><span class="w"> </span><span class="n">in_b</span><span class="p">,</span><span class="w"> </span><span class="n">in_v</span><span class="p">,</span><span class="w"> </span><span class="n">out_b</span><span class="p">,</span><span class="w"> </span><span class="n">out_v</span><span class="p">,</span>
-</code></pre></div>
-其中b对应8位，v对应16位。</p>
+</code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">端口映射I/O模拟</p>
 <p>在nemu/src/device/io/port_io.c源文件中有一个pio_handler_table数组，其中维护了端口和外设之间的映射关系，即，端口号port和处理函数handler之间的对应关系。同时提供了两个接口函数pio_write()和pio_read()供out和in指令调用。pio_handler_table数组建立了某一个端口及其处理函数（handler）之间的对应关系，当对某一个端口进行读写时，会调用该端口对应的处理函数来模拟设备的相应动作。在nemu/include/device/port_io.h头文件中我们提供了宏make_pio_handler来帮助声明处理函数。</p>
@@ -746,15 +882,15 @@
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPR_REG</span><span class="p">;</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">REG_AL</span><span class="p">;</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pio_read</span><span class="p">((</span><span class="n">cpu</span><span class="p">.</span><span class="n">edx</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">//增强代码的健壮性</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pio_read</span><span class="p">((</span><span class="n">cpu</span><span class="p">.</span><span class="n">edx</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">operand_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_src</span><span class="p">);</span>
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span>
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">make_instr_func</span><span class="p">(</span><span class="n">in_v</span><span class="p">){</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data_size</span><span class="p">;</span>
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPR_REG</span><span class="p">;</span>
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">REG_AX</span><span class="p">;</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pio_read</span><span class="p">((</span><span class="n">cpu</span><span class="p">.</span><span class="n">edx</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">),</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">//增强代码的健壮性</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pio_read</span><span class="p">((</span><span class="n">cpu</span><span class="p">.</span><span class="n">edx</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">),</span><span class="w"> </span><span class="n">data_size</span><span class="o">/</span><span class="mi">8</span><span class="p">);</span>
 <a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="n">operand_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_src</span><span class="p">);</span>
 <a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="p">}</span>
@@ -770,30 +906,43 @@
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">make_instr_func</span><span class="p">(</span><span class="n">out_v</span><span class="p">){</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data_size</span><span class="p">;</span>
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPR_REG</span><span class="p">;</span>
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">REG_AX</span><span class="p">;</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="n">operand_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_src</span><span class="p">);</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="n">pio_write</span><span class="p">((</span><span class="n">cpu</span><span class="p">.</span><span class="n">edx</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">),</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="p">);</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="n">pio_write</span><span class="p">((</span><span class="n">cpu</span><span class="p">.</span><span class="n">edx</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">),</span><span class="w"> </span><span class="n">data_size</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="p">);</span>
 <a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="p">}</span>
 </code></pre></div>
 并在相应的头文件中声明，将opcode对应位置修改后，就完成了IN和OUT指令的模拟。</p>
+<div class="admonition bug">
+<p class="admonition-title">IN和OUT指令的一个错误实现</p>
+<p>这个错误实现能通过PA4-2的第一阶段，但是在日后的征途中会暴露出来。这个甚至应该被称为低级的错误导致的异常现象曾经困扰了我很久、很久。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">make_instr_func</span><span class="p">(</span><span class="n">in_v</span><span class="p">){</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPR_REG</span><span class="p">;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">REG_AX</span><span class="p">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pio_read</span><span class="p">((</span><span class="n">cpu</span><span class="p">.</span><span class="n">edx</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFFFF</span><span class="p">),</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">operand_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_src</span><span class="p">);</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">}</span>
+</code></pre></div></p>
+</div>
 <p>下面就是实现<code>serial_printc()</code>函数，这个函数位于kernel/src/lib/serial.c中。</p>
 <div class="admonition note">
 <p class="admonition-title">serial_printc()的提示</p>
 <p>在kernel/include/x86/io.h中框架代码已经封装好了in和out指令的调用，请选择合适的函数调用。具体而言，我们期望实现这个函数的功能是将传入的参数ch通过serial输出到控制台上。而封装好的与out相关函数有：
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">out_byte</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">out_word</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">out_long</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">out_byte</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">out_word</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">out_long</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
 </code></pre></div></p>
 </div>
 <p>而传入的字符为char型，因此，我们只需要调用<code>out_byte()</code>即可，也就是说serial_printc()的实现如下：
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">serial_printc</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">ch</span><span class="p">)</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">{</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">serial_idle</span><span class="p">());</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">out_byte</span><span class="p">(</span><span class="n">SERIAL_PORT</span><span class="p">,</span><span class="n">ch</span><span class="p">);</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">serial_printc</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">ch</span><span class="p">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">serial_idle</span><span class="p">());</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">out_byte</span><span class="p">(</span><span class="n">SERIAL_PORT</span><span class="p">,</span><span class="n">ch</span><span class="p">);</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
 </code></pre></div>
 以上，我们完成了串口的模拟，在<code>make test_pa-4-2</code>运行<code>hello-inline</code>测试用例，对比实现串口前后的输出内容的区别。可以发现，输出内容前的<code>nemu trap output:</code>标记消失了，这标志着我们通过了PA-4-2的第一阶段。
 <img alt="串口输出" src="../pa_pic/4-2-hello_inline.png" /></p>
@@ -812,6 +961,41 @@
 </li>
 </ol>
 </div>
+<p>在Kernel中的<code>kernel/src/driver/ide</code>文件夹中，包含了对硬盘驱动程序的封装。<code>disk.c</code>源文件中提供的<code>ide_read()</code>和<code>ide_write()</code>函数是磁盘驱动程序对外提供的接口，供其它模块调用实现对磁盘的读写。我们可以观察到，<code>ide_read</code>函数循环调用 read_byte 函数逐个字节地从指定的磁盘偏移量处读取数据，并将其存储到由 buf 指向的内存缓冲区中。每次迭代都会增加偏移量 offset，从而确保连续读取相邻的字节；<code>ide_write</code>函数也是通过循环调用 write_byte 来逐个字节地将数据从内存缓冲区写回到磁盘上相应的偏移位置。随着循环的推进，offset 增加，确保每个新字节都被正确地放置在其应有的位置上。这两个函数原型牵涉到我们在<code>elf.c</code>中对其的调用。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ide_read</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_byte</span><span class="p">(</span><span class="n">offset</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">}</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ide_write</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">len</span><span class="p">)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="p">{</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">        </span><span class="n">write_byte</span><span class="p">(</span><span class="n">offset</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="p">}</span>
+</code></pre></div></p>
+<div class="admonition example">
+<p class="admonition-title">一个投机取巧的实现</p>
+<p>事实上，用如下的代码也可以实现对硬盘读写的模拟，但是，这并不是一个好的实现。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">#ifdef HAS_DEVICE_IDE</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">        </span><span class="n">ide_read</span><span class="p">((</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="n">paddr</span><span class="p">,</span><span class="n">ph</span><span class="o">-&gt;</span><span class="n">p_offset</span><span class="p">,</span><span class="n">ph</span><span class="o">-&gt;</span><span class="n">p_filesz</span><span class="p">);</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="cp">#else            </span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">        </span><span class="n">memcpy</span><span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">paddr</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">elf</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ph</span><span class="o">-&gt;</span><span class="n">p_offset</span><span class="p">,</span><span class="w"> </span><span class="n">ph</span><span class="o">-&gt;</span><span class="n">p_filesz</span><span class="p">);</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="cp">#endif</span>
+</code></pre></div>
+这里没有使用<code>ide_write()</code>函数，而是直接将用户程序进行拷贝到，这不是一个好的实现。但是，有意思的是在PA的PPT中，给出了如下的提示，似乎在暗示着什么。</p>
+<blockquote>
+<p>提示：有些接口这里用不到咱就不用</p>
+</blockquote>
+</div>
+<p>在完成从硬盘加载程序的模拟后，我们可以通过<code>make test_pa-4-2</code>执行测试用例，观察输出测试信息，会发现ELF文件的装载<code>Log</code>信息由<code>ELF loading from ram disk.</code>变为了<code>ELF loading from hard disk.</code>并且测试用例执行正常，这标志着我们通过了PA-4-2的第二阶段。
+<img alt="硬盘加载" src="../pa_pic/4-2-hard_disk.png" /></p>
 <h3 id="_3">键盘的交互</h3>
 <div class="admonition info">
 <p class="admonition-title">完成键盘的模拟</p>
@@ -824,6 +1008,8 @@
 </li>
 </ol>
 </div>
+<p>这一阶段在代码部分似乎对于我们没有提出很高要求，如果前述实现正确，我们可以相对容易观察到本阶段的正确通过。在实现了模拟键盘后，我们能开启最后一个测试用例<code>echo</code>。运行<code>echo</code>，每次在窗口中键入一个英文字母，就会在标准输出中打印一个对应的大写字母，这标志着我们通过了PA-4-2的第三阶段。</p>
+<p><img alt="键盘交互" src="../pa_pic/4-2-echo.png" /></p>
 <h3 id="_4">缤纷的世界</h3>
 <div class="admonition info">
 <p class="admonition-title">实现VGA的MMIO</p>
@@ -841,6 +1027,24 @@
 <p>通过<code>make test_pa-4-2</code>执行测试用例，观察输出测试颜色信息，并通过<code>video_mapping_read_test()</code>。</p>
 </li>
 </ol>
+</div>
+<p>这里我暂时不想过多解释。实现VGA后可能的颜色输出如下：</p>
+<p><img alt="VGA" src="../pa_pic/4-2-vga.png" /></p>
+<p>事实上，如果在执行过程中没有遇到<code>assert</code>终止，那么就意味着通过了PA-4-2的第四阶段的<code>video_mapping_read_test()</code>。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">video_mapping_read_test</span><span class="p">()</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="p">{</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">VMEM_ADDR</span><span class="p">;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SCR_SIZE</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="p">}</span>
+</code></pre></div></p>
+<div class="admonition success">
+<p class="admonition-title">PA-4-2阶段结束</p>
+<p>今夕是何年？
+考完期末了吗？如果考完了，感觉如何；如果还没有，你准备好了吗？</p>
 </div>
 
 

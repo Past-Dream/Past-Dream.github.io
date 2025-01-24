@@ -1,0 +1,1397 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Past Dream's blog">
+      
+      
+      
+        <link rel="canonical" href="https://pastdream.github.io/ics/theory/ICS-06/">
+      
+      
+        <link rel="prev" href="../ICS-04/">
+      
+      
+        <link rel="next" href="../ICS-07/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.45">
+    
+    
+      
+        <title>第6章 层次结构存储系统 - Past Dream</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.75 1.75 0 0 1 1 7.775m1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25m13.274 9.537zl-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074M4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5M4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75M8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.5 4.5 0 0 1-.563-1.191 3.84 3.84 0 0 1-.05-2.063 4.65 4.65 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .75.75 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.4 2.4 0 0 1-.507-.441 3.1 3.1 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19.01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.7 3.7 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.76 2.76 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6 6 0 0 0-.26.16 1 1 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661q.154-.1.313-.195l.007-.004c.1-.061.182-.11.258-.161a1 1 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.61.61 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1 1 0 0 0-.34.398M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343za8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746m1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275M6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.75.75 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.75.75 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L6.94 8 4.97 6.03a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005 0-.009.004"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.5 3.5 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327q0 .15-.025.292c.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5q-.002.615-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A5 5 0 0 1 8 16a5 5 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5 5 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.7 1.7 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06m.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.17.17 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.75.75 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5m4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5m0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5M2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Past Dream" class="md-header__button md-logo" aria-label="Past Dream" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Past Dream
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第6章 层次结构存储系统
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../ics_pre/" class="md-tabs__link">
+          
+  
+  ICS
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Past Dream" class="md-nav__button md-logo" aria-label="Past Dream" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Past Dream
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    ICS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ICS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ics_pre/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ICS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ICS_理论试题选解
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            ICS_理论试题选解
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ICS-04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第4章 程序的链接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    第6章 层次结构存储系统
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    第6章 层次结构存储系统
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      《计算机系统基础》第6章 层次结构存储系统 理论作业
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="《计算机系统基础》第6章 层次结构存储系统 理论作业">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      第3题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      第4题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      第5题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      第8题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      第12题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      第13题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      第19题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      第20题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      第21题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      第23题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ICS-07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第7章 异常控制流
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ICS-08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第8章 I/O操作的实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ICS_PA(x86)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            ICS_PA(x86)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ics_pa_pre/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    在PA开始之前（x86）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pa/ics_pa-3-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PA 3-1 更快访问的追求
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pa/ics_pa-3-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PA 3-2 虚实交错的魔法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pa/ics_pa-3-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PA 3-3 超越容量的界限
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pa/ics_pa-4-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PA 4-1 来自外部的声音
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pa/ics_pa-4-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PA 4-2 冯诺依曼的构想
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pa/ics_pa-4-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PA 4-3 编写不朽的传奇
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      《计算机系统基础》第6章 层次结构存储系统 理论作业
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="《计算机系统基础》第6章 层次结构存储系统 理论作业">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      第3题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      第4题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      第5题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      第8题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      第12题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      第13题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      第19题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      第20题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      第21题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      第23题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>第6章 层次结构存储系统</h1>
+
+<h2 id="6">《计算机系统基础》第6章 层次结构存储系统 理论作业</h2>
+<hr />
+<h3 id="3">第3题</h3>
+<p>计算机主存的最大寻址空间为4G，按字节编址。假定用64M×8位的具有8个位平面的DRAM芯片组成容量为512MB，传输宽度为64位的内存条（主存模块）。
+（1）单个DRAM芯片的存储容量为
+[
+    64M \times 8 bites = 64MB <br />
+]每个内存条需要DRAM芯片数量为
+[
+    \frac{512MB}{64MB} = 8
+]
+（2）构建容量为2GB的主存时，需要的内存条数量为
+[
+    \frac{2GB}{512MB} = 4
+]
+（3）根据上述内容，由于主存的最大寻址空间为4GB，注意到
+[
+    4GB = 2^{32}B
+]按字节编址，主存地址共有32位，记为$A_{31}A_{30}A_{29}...A_{2}A_{1}A_{0}$。
+根据《计算机系统基础》第258页内容，采用双译码结构的DRAM芯片地址译码器分为X和Y方向两个译码器。对于本题中的DRAM芯片，存储阵列有64M = $2^{26}$ 个单元，需要26根地址线，其中高13位送X译码器作为行地址选择一行单元；低13位送Y译码器作为列地址控制一列单元的位线控制门。
+于是DRAM芯片内地址为$A_{28}A_{27}...A_{4}A_{3}$，其中行地址$A_{28}A_{27}...A_{17}A_{16}$，列地址$A_{15}A_{14}...A_{4}A_{3}$，用于选择芯片的位为$A_{2}A_{1}A_{0}$。
+而每次内存条内的8个DRAM芯片同时读写，每个芯片有8个位平面，因此可以同时读出64位数据。</p>
+<h3 id="4">第4题</h3>
+<p>计算机按字节编址，已配有0000H~7FFFH的ROM区域，现再用$16K \times 4bite$的RAM芯片形成$32K \times 8bite$的存储区域，中央处理器地址线16位。
+（1）RAM存储区域大小
+[
+    32K \times 8bite = 32KB = 2^{15}B
+]地址起始为8000H，则RAM区地址范围为8000H~FFFFH。
+需要RAM芯片数量为
+[
+    \frac{32K \times 8bite}{16K \times 4bite} = 4
+]CPU地址线用来区分RAM区和ROM区的位为$A_{15}$。
+（2）需要的RAM芯片数为
+[
+    \frac{2^{24}B - 2^{15}B}{16K \times 4bite} = 2^{11} - 2^{2} = 2044
+]</p>
+<h3 id="5">第5题</h3>
+<p>程序重复完成将磁盘上的一个4KB数据块读出，在时钟频率为500MHz的处理器进行20000个时钟周期的处理后写入另一个数据区，数据块内信息在磁盘上连续存放，数据块随机位于磁盘的一个磁道上，磁盘转速7200转/分，平均寻道时间10ms，最大内部数据传输率40MB/s，磁盘控制器开销2ms。
+本过程需要计两次控制器时间；计两次磁盘寻道时间；计两次旋转等待时间，其中平均等待时间取磁盘旋转一周所需时间的一半，为$\frac{1}{2} \times \frac{60s}{7200} = \frac{1}{240}s$；两次数据传输时间，每次数据传输时间为$\frac{4KB}{40MB/s} = \frac{8}{78125}s$；一次数据处理时间，为$\frac{20000}{500MHz} = 4 \times 10^{-5}s$；过程总时间为
+[
+    2 \times 2ms + 2 \times 10ms + 2 \times \frac{1}{240}s + 2 \times \frac{8}{78125}s + 4 \times 10^{-5}s \approx 0.032578s
+]程序每秒可以完成数据块操作次数约为
+[
+    \frac{1s}{0.032578s} \approx 30.6954
+]</p>
+<h3 id="8">第8题</h3>
+<p>计算机主存地址空间大小1GB，按字节编址，cache数据区64KB，块大小128B，采用直接映射和write-through方式。
+根据《计算机系统基础》6.4节高速缓冲存储器的内容，主存块和cache行之间采用直接映射方式表明每个主存块映射到cache的固定行中，也称为模映射，映射关系为
+[
+   \textbf{cache 行号} = \textbf{主存块号 } mod \textbf{  cache 行数}
+]直接映射方式下，主存被分成标记、cache行号、块内地址三个字段。假定cache共有$2^{c}$行，主存共有$2^{m}$块，主存块大小占$2^{b}$字节，则从高到低依次有(m-c)位标记字段，c位cache行号，b位块内地址。
+Write-through方式则表明当CPU执行写操作时，若写命中，则同时写cache和主存。
+（1）注意到主存地址空间大小$1GB = 2^{30}B$，因此主存地址有30位。块大小$128B = 2^{7}B$，因此低7位为块内地址。cache行数为$\frac{64KB}{128B} = 512 = 2^{9}$，因此中间9位为cache行号，高14位为标记字段。
+（2）已知cache行数为$512$，而cache数据区64KB。除了数据区，cache还有标记区，每行cache有14位标记位，1位有效位。于是cache总容量应为
+[
+    512 \times (1 + 14 + 128 \times 8) = 531968\textbf{位}
+]</p>
+<h3 id="12">第12题</h3>
+<p>根据《计算机系统基础》第6.4.1节内容，对大型典型程序运行情况分析结果表明，在较短时间间隔内，程序产生的地址往往集中在存储空间一个很小的范围，这种现象称为<strong>程序访问的局部性</strong>。这种局部性可以细分为被访问的某个存储单元在一个较短的时间间隔内很可能又被访问的<strong>时间局部性</strong>和被访问的某个存储单元的邻近单元在一个较短的时间间隔内很可能也被访问的<strong>空间局部性</strong>。
+Cache的<strong>组相联映射</strong>组合直接映射与全相联映射，取长补短。其将cache分成大小相等的组，每个主存块被映射到cache中的任意一行，采用“组间模映射，组内全映射”的方式，映射关系为[
+   \textbf{cache 行号} = \textbf{主存块号 } mod \textbf{  cache 组数}
+]
+对于如题的向量点乘程序：
+（1）访问数组x和y时均是按顺序依次访问，因此空间局部性较好；由于数组中每个元素都只被访问一次,因此时间局部性很差。由于数组规模较小且空间局部性较好，推测命中率相对较高，但是也不排除本题问（2）中命中率很低的情形。
+（2）主存块大小为16B，cache数据区大小为32B，则cache有$\frac{32B}{16B} = 2$行。对于浮点数组x,y，根据《计算机系统基础》第2.6.1节的内容，C语言中float数据类型的宽度为4。数组x存放在0x8049040（第0x804904块的起始地址）开始的区域，连续存储2个块；数组y存放在0x8049060开始的区域，连续存储2个块。数据cache采用的是直接映射方式，则注意到存储x[0]-x[3]与存储y[0]-y[3]会被映射至cache的同一行，存储x[4]-x[7]与存储y[4]-y[7]会被映射至cache的同一行；而程序中数组x和y被交替访问，则cache在此过程中被不断重写，而命中率为0。
+（3）将（2）中的cache改为2-路组相联映射，块大小改为8字节，则cache数据区有4行，被分为2组。同上，我们注意到存储x[0]-x[1]与存储y[0]-y[1]会被映射至cache的同一组，存储x[2]-x[3]与存储y[2]-y[3]会被映射至cache的同一组......但是每组有两行，组内全映射可以使x与y均保存在cache内。因此当i为偶数时，cache不命中，同时将存储x[i]-x[i+1]/y[i]-y[i+1]的主存块复制到cache中；当i为奇数时，cache命中。因此，该程序数据访问的命中率为50%。
+（4）在（2）中条件不变的情况下，将数组x定义为<code>float x[12]</code>，很有意思，数组x存放在0x8049040（第0x804904块的起始地址）开始的区域，连续存储3个块；数组y存放在0x8049070开始的区域，连续存储2个块。数据cache采用的是直接映射方式，则此时存储x[0]-x[3]与存储y[0]-y[3]会被映射至cache的不同行（分别映射至第0行、第1行），存储x[4]-x[7]与存储y[4]-y[7]也会被映射至cache的不同行（分别映射至第1行、第0行）。程序中数组x和y被交替访问，当 i = 0 或 4 时，cache不命中，同时将存储x[i]-x[i+3]/y[i]-y[i+3]的主存块复制到cache中；当i为其他数时，cache命中。因此，该程序数据访问的命中率为75%。</p>
+<h3 id="13">第13题</h3>
+<p>解决cache一致性的 <strong>回写法（write-back）</strong> 的基本做法是：当CPU执行写操作时，若写命中，信息只被写入cache而不被写入主存；若写不命中则在cache中分配一行，将主存块调入cache行中并更新cache中相应单元的内容（因此该方式下在写不命中时，通常采用写分配法进行写操作）。也即：在CPU执行写操作时，回写法不会更新主存单元，只有当cache行中的主存块被替换且修改位（dirty bit)时才将该主存块内容一次性写会主存，减少了写主存的次数，降低了主存的带宽要求。
+本计算机只有一级cache，其中L1数据cache的数据区大小32B，主存块大小16B，则cache有2行。数组dst从主存地址0x804c000开始存放，数组src从主存地址0x804c040开始存放，则（表中斜杠前的数字表示映射到的cache行数，斜杠后为是否命中，下同）：</p>
+<table>
+  <tr>
+    <th colspan="1"></th>
+    <th colspan="4">src数组</th>
+    <th colspan="4">dst数组</th>
+  </tr>
+  <tr>
+    <td></td>
+    <td>col=0</td>
+    <td>col=1</td>
+    <td>col=2</td>
+    <td>col=3</td>
+    <td>col=0</td>
+    <td>col=1</td>
+    <td>col=2</td>
+    <td>col=3</td>
+  </tr>
+  <tr>
+    <td>row=0</td>
+    <td>0/miss</td>
+    <td>0/miss</td>
+    <td>0/hit</td>
+    <td>0/miss</td>
+    <td>0/miss</td>
+    <td>0/miss</td>
+    <td>0/miss</td>
+    <td>0/miss</td>
+  </tr>
+  <tr>
+    <td>row=1</td>
+    <td>1/miss</td>
+    <td>1/hit</td>
+    <td>1/miss</td>
+    <td>1/hit</td>
+    <td>1/miss</td>
+    <td>1/miss</td>
+    <td>1/miss</td>
+    <td>1/miss</td>
+  </tr>
+  <tr>
+    <td>row=2</td>
+    <td>0/miss</td>
+    <td>0/miss</td>
+    <td>0/hit</td>
+    <td>0/miss</td>
+    <td>0/miss</td>
+    <td>0/miss</td>
+    <td>0/miss</td>
+    <td>0/miss</td>
+  </tr>
+  <tr>
+    <td>row=3</td>
+    <td>1/miss</td>
+    <td>1/hit</td>
+    <td>1/miss</td>
+    <td>1/hit</td>
+    <td>1/miss</td>
+    <td>1/miss</td>
+    <td>1/miss</td>
+    <td>1/miss</td>
+  </tr>
+</table>
+
+<p>若L1的数据区容量改为128B，则一级高速缓存有8行，有：</p>
+<table>
+  <tr>
+    <th colspan="1"></th>
+    <th colspan="4">src数组</th>
+    <th colspan="4">dst数组</th>
+  </tr>
+  <tr>
+    <td></td>
+    <td>col=0</td>
+    <td>col=1</td>
+    <td>col=2</td>
+    <td>col=3</td>
+    <td>col=0</td>
+    <td>col=1</td>
+    <td>col=2</td>
+    <td>col=3</td>
+  </tr>
+  <tr>
+    <td>row=0</td>
+    <td>4/miss</td>
+    <td>4/hit</td>
+    <td>4/hit</td>
+    <td>4/hit</td>
+    <td>0/miss</td>
+    <td>0/hit</td>
+    <td>0/hit</td>
+    <td>0/hit</td>
+  </tr>
+  <tr>
+    <td>row=1</td>
+    <td>5/miss</td>
+    <td>5/hit</td>
+    <td>5/hit</td>
+    <td>5/hit</td>
+    <td>1/miss</td>
+    <td>1/hit</td>
+    <td>1/hit</td>
+    <td>1/hit</td>
+  </tr>
+  <tr>
+    <td>row=2</td>
+    <td>6/miss</td>
+    <td>6/hit</td>
+    <td>6/hit</td>
+    <td>6/hit</td>
+    <td>2/miss</td>
+    <td>2/hit</td>
+    <td>2/hit</td>
+    <td>2/hit</td>
+  </tr>
+  <tr>
+    <td>row=3</td>
+    <td>7/miss</td>
+    <td>7/hit</td>
+    <td>7/hit</td>
+    <td>7/hit</td>
+    <td>3/miss</td>
+    <td>3/hit</td>
+    <td>3/hit</td>
+    <td>3/hit</td>
+  </tr>
+</table>
+
+<h3 id="19">第19题</h3>
+<p>处理器带有一个数据区容量为256B的cache，主存块大小为32B（cache有8行）有<code>sizeof(int) = 4</code>，每块存放整数数量为8。若cache采用直接映射方式，我们注意到计算缺失率只需要考虑如下代码：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">++</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">128</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">s</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+</code></pre></div>
+（1）当 s = 64 且cache采用直接映射方式时，我们注意到a[0]与a[64]的块号一定相差为8，且本程序访存表现为依次循环访问a[0]与a[64]10000次，而存储a[0]的块与存储a[64]的块在cache采用直接映射方式时会被映射至cache的同一行，则没有一次可以命中，命中率为0，缺失率为
+[
+    1 - 0 = 100\%
+]
+（2）当 s = 63 且cache采用直接映射方式时，本程序访存表现为依次循环访问a[0]，a[63]，a[126] 10000次。依题设，数组a从一个主存块开始处存放，则存储a[63]的块与存储a[126]的块在cache采用直接映射方式时会被映射至cache的同一行，存储a[0]的块与存储a[63]（a[126]）的块在cache采用直接映射方式时会被映射至cache的不同行。在此过程中，a[0]除了第一次循环（i = 0）都将命中，而a[63]与a[126]不会命中，于是命中率为
+[
+    \frac{10000-1}{3 \times 10000} \times 100\% = 33.33\%
+]缺失率为
+[
+    1 - 33.33\% = 66.67\%
+]
+（3）当 s = 64 且cache采用2-路组相连映射方式时，我们注意到a[0]与a[64]的块号一定相差为8，且本程序访存表现为依次循环访问a[0]与a[64]10000次，而存储a[0]的块与存储a[64]的块在cache采用组相连映射方式时会被映射至cache的同一组，但是幸运的是每组中有2行，可以分别存放存储a[0]的块与存储a[64]的块，则在此过程中，a[0]和a[64]除了第一次循环（i = 0）都将命中，于是命中率为
+[
+    \frac{2\times (10000-1)}{2 \times 10000} \times 100\% = 99.99\%
+]缺失率为
+[
+    1 - 99.99\% = 0.01\%
+]
+（4）当 s = 63 且cache采用2-路组相连映射方式时，本程序访存表现为依次循环访问a[0]，a[63]，a[126] 10000次。依题设，数组a从一个主存块开始处存放，则存储a[63]的块与存储a[126]的块在cache采用直接映射方式时会被映射至cache的同一组，存储a[0]的块与存储a[63]（a[126]）的块在cache采用直接映射方式时会被映射至cache的不同组。幸运的是每组中有2行，可以分别存放存储a[63]的块与存储a[126]的块，则在此过程中，a[0]，a[63]，a[126]除了第一次循环（i = 0）都将命中，于是命中率为
+[
+    \frac{3\times (10000-1)}{3 \times 10000} \times 100\% = 99.99\%
+]缺失率为
+[
+    1 - 99.99\% = 0.01\%
+]</p>
+<h3 id="20">第20题</h3>
+<p>目前各类通用计算机中广泛采用了虚拟存储技术，虚拟存储器主要有三种类型：分页式、分段式、段页式。在<strong>分页式存储系统</strong>中，虚拟地址空间被划分为大小相等的页面，硬盘与主存间按页面交换信息。在虚拟存储机制中采用全相联映射，每个虚拟页可以存放到主存任何一个空闲页框中，页表则用于描述各个虚拟页与所存放的主存页框号或磁盘上存储位置的关系。进程中每个虚拟页在页表中都有一个对应的表项称为页表项，包括虚拟页的存放位置、装入位（valid）、修改位（dirty）、使用位、访问权限位、禁止缓存位等。
+本题中，每页大小为$16KB = 2^{14}B$，因此页内地址数为14位；虚拟地址为40位，因此虚页号位数为 $40-14 = 26$；物理地址为36位，因此虚页号位数为 $36-14 = 22$；每个进程的页表项数为 $2^{26}$，每个页表项位数至少为$22 + 4 = 26$。不考虑对齐，每个页表项26位构建页表，每个进程的页表大小为
+[
+  26b \times 2^{26} = 1.625 \times 2^{27} B = 208MB
+]考虑对齐简化对页表项的访问，每个页表项32位构建页表，每个进程的页表大小为
+[
+  32b \times 2^{26} = 1 \times 2^{28} B = 256MB
+]
+正如《计算机系统基础》6.5.3节内容所指出的：页表属于进程控制信息，位于虚拟地址空间的内核空间，页表在主存的首地址记录在页表基址寄存器中。页表的项数由虚拟地址空间大小决定，而虚拟地址空间是一个用户编程不受其限制的足够大的地址空间，因此页表项会很多，带来页表过大的问题。本题中如果按计算出的实际大小构建页表就会遇到页表过大的问题。</p>
+<h3 id="21">第21题</h3>
+<p>在分页式虚拟存储器中，后备转换缓冲器（TLB）通常称为<strong>快表</strong>，比页表小得多，通常具有较高的关联度，大多采用全相联映射或组相联映射，每个表项内容由页表加上一个<strong>TLB标记字段</strong>（表示表项取自哪个虚拟页对应的页表项）构成。在全相联方式下TLB标记字段就是该页表项对应的虚拟页号；在组相联方式下对应虚拟页号的高位部分，虚拟页号的低位部分作为TLB索引用于选择TLB组。
+本题中，
+（1）虚拟地址有16位，页大小为$128B = 2^{7}B$，因此页内地址数为7位。则虚拟地址中的高9位表示虚拟页号，低7位表示页内偏移量。
+TLB采用了4路组相联映射方式，共有16个页表项，因此有$4 = 2^{2}$组。因此虚拟页号的高7位表示TLB标记，低2位表示TLB组索引。
+（2）物理地址有12位，同样的低7位表示页内偏移量，而高5位表示物理页号。
+（3）本题中cache采用直接映射方式，块大小4B，共16行，则cache数据区大小为$64B = 2^{6}B$，于是物理地址的低2位作为块内地址字段，高6位作为标记字段，中间4位作为行索引字段。
+（4）从虚拟地址067AH（0b0000011001111010）中读取一个short变量，依据（1）问中得出的虚拟地址划分，虚拟页号的高7位（0b0000011 = 0x03）表示TLB标记，低2位（0b00 = 0x0）表示TLB组索引。查TLB第0组得到标记为03的项有效位为0；查页表得到虚页号（0b000001100 = 0x0C）对应的页框号为0x19（0b11001），得到物理地址为0b110011111010，再依据（3）问中给出的物理地址划分，得到标记字段为0b110011 = 0x33，行索引字段为$0b1110 = 0xE$，块内地址字段为0b10 = 0x2，cache命中。依据《计算机系统基础》第2.6.1节的内容，C语言中short数据类型的宽度为2。以块内地址为0x2处开始读出两个字节内容为0x4A2D，因此变量的值为0x4A2D。</p>
+<h3 id="23">第23题</h3>
+<p>（1）手工写出循坏语句S对应的指令序列可能如下
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>  mov $0, %ecx
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>.LOOP
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  cmp %ebx, %ecx
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  je .EXIT
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  add (%edx,%ecx,4), %eax
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  add $1, %ecx
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  jmp .LOOP
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>.EXIT  
+</code></pre></div>
+使用gcc将下面的C语言源文件编译生成汇编文件
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">sum</span><span class="o">+=</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
+</code></pre></div>
+由于使用了AMD64架构，gcc version 13.2.0 (Ubuntu 13.2.0-23ubuntu4)，可能与试题要求有一些差异，因此也不再做详细比较。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>main:
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>.LFB0:
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    .cfi_startproc
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    endbr64
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    pushq   %rbp
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    .cfi_def_cfa_offset 16
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    .cfi_offset 6, -16
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    movq    %rsp, %rbp
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    .cfi_def_cfa_register 6
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    subq    $48, %rsp
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    movq    %fs:40, %rax
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    movq    %rax, -8(%rbp)
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    xorl    %eax, %eax
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    movq    %rsp, %rax
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    movq    %rax, %rsi
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    movl    $10, -28(%rbp)
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    movl    $0, -32(%rbp)
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    movl    -28(%rbp), %eax
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    movslq  %eax, %rdx
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    subq    $1, %rdx
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    movq    %rdx, -24(%rbp)
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    cltq
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    leaq    0(,%rax,4), %rdx
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    movl    $16, %eax
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    subq    $1, %rax
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>    addq    %rdx, %rax
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>    movl    $16, %edi
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>    movl    $0, %edx
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>    divq    %rdi
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>    imulq   $16, %rax, %rax
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>    movq    %rax, %rcx
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>    andq    $-4096, %rcx
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>    movq    %rsp, %rdx
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>    subq    %rcx, %rdx
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>.L2:
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>    cmpq    %rdx, %rsp
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>    je  .L3
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>    subq    $4096, %rsp
+<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>    orq $0, 4088(%rsp)
+<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>    jmp .L2
+<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>.L3:
+<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>    movq    %rax, %rdx
+<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>    andl    $4095, %edx
+<a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>    subq    %rdx, %rsp
+<a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>    movq    %rax, %rdx
+<a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>    andl    $4095, %edx
+<a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>    testq   %rdx, %rdx
+<a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a>    je  .L4
+<a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a>    andl    $4095, %eax
+<a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a>    subq    $8, %rax
+<a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>    addq    %rsp, %rax
+<a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a>    orq $0, (%rax)
+<a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>.L4:
+<a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a>    movq    %rsp, %rax
+<a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a>    addq    $3, %rax
+<a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a>    shrq    $2, %rax
+<a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a>    salq    $2, %rax
+<a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a>    movq    %rax, -16(%rbp)
+<a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a>    movl    $0, -36(%rbp)
+<a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a>    jmp .L5
+<a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a>.L6:
+<a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a>    movq    -16(%rbp), %rax
+<a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a>    movl    -36(%rbp), %edx
+<a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a>    movslq  %edx, %rdx
+<a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a>    movl    (%rax,%rdx,4), %eax
+<a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a>    addl    %eax, -32(%rbp)
+<a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a>    addl    $1, -36(%rbp)
+<a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a>.L5:
+<a id="__codelineno-3-69" name="__codelineno-3-69" href="#__codelineno-3-69"></a>    movl    -36(%rbp), %eax
+<a id="__codelineno-3-70" name="__codelineno-3-70" href="#__codelineno-3-70"></a>    cmpl    -28(%rbp), %eax
+<a id="__codelineno-3-71" name="__codelineno-3-71" href="#__codelineno-3-71"></a>    jl  .L6
+<a id="__codelineno-3-72" name="__codelineno-3-72" href="#__codelineno-3-72"></a>    movl    $0, %eax
+<a id="__codelineno-3-73" name="__codelineno-3-73" href="#__codelineno-3-73"></a>    movq    %rsi, %rsp
+<a id="__codelineno-3-74" name="__codelineno-3-74" href="#__codelineno-3-74"></a>    movq    -8(%rbp), %rdx
+<a id="__codelineno-3-75" name="__codelineno-3-75" href="#__codelineno-3-75"></a>    subq    %fs:40, %rdx
+<a id="__codelineno-3-76" name="__codelineno-3-76" href="#__codelineno-3-76"></a>    je  .L8
+<a id="__codelineno-3-77" name="__codelineno-3-77" href="#__codelineno-3-77"></a>    call    __stack_chk_fail@PLT
+<a id="__codelineno-3-78" name="__codelineno-3-78" href="#__codelineno-3-78"></a>.L8:
+<a id="__codelineno-3-79" name="__codelineno-3-79" href="#__codelineno-3-79"></a>    leave
+<a id="__codelineno-3-80" name="__codelineno-3-80" href="#__codelineno-3-80"></a>    .cfi_def_cfa 7, 8
+<a id="__codelineno-3-81" name="__codelineno-3-81" href="#__codelineno-3-81"></a>    ret
+<a id="__codelineno-3-82" name="__codelineno-3-82" href="#__codelineno-3-82"></a>    .cfi_endproc
+</code></pre></div></p>
+<p>（2）IA-32+Linux平台采用两级页表分页虚拟存储管理方式，则控制寄存器CR0中的控制位PE = 1（保护模式）， PG = 1（启用分页）。</p>
+<p>（3）指令I实现了赋值语句<code>sum+=a[i];</code>，对应的汇编形式（AT&amp;T格式）应该为
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>movl    (%eax,%edx,4), %eax
+</code></pre></div>
+依据《计算机系统基础》3.2.2节的内容，存储器操作数寻址方式为比例变址加位移。</p>
+<p>（4）当i = 50时，取指令操作过程中MMU得到的线性地址是指令I的线性地址，为0x8048c08，页大小$4KB = 2^{12}B$，虚页号为高20位，为0x8048。页目录索引为高10位，为0b0000100000 = 0x20；页表索引为中10位，为0x0001001000 = 0x48；页内偏移量为低12位，为0xc08。
+IA-32+Linux平台采用<strong>两级页表分页虚拟存储管理方式</strong>。指令I的页目录项存储在主存$0x3d000 + 0x080 = 0x3d080$处，大小为4B；指令I的页表项存储在主存$0x5c8000 + 0x120 = 0x5c8120$处；指令I所在页在主存中分配的页框号为1020（我们将其视为十六进制处理），则指令I存放的主存地址为0x1020c08。
+第一次执行指令I时，指令I对应页表项中P = 1（说明段已经存在于主存中，Linux总是把P置为1，因为其以页为单位交换），R/W = 0（表示页只能读不能写，因为指令I对应的页为指令页），U/S = 1（表示允许用户进程访问，这是一个C语言源程序对应的用户进程，不是操作系统所使用的页），A = 1（段已经被访问过），D = 1（地址和数据为32位宽）。</p>
+<p>（5）指令I在第一次执行时，有可能发生缺页异常，因为取操作数a[0]不能保证不发生缺页异常，可能虚页0x8049此前未被访问。如果发生缺页异常，页故障线性地址为0x8049300，该地址保存在寄存器CR2（页故障线性地址寄存器）中。</p>
+<p>（6）根据《计算机系统基础》6.5.3节的内容，TLB命中则页一定命中，可知若缺页则TLB一定缺失。在（5）问中我们指出指令I在第一次执行时，可能发生缺页异常，于是由相同理由可知可能发生TLB缺失。若指令TLB共有16个表项，采用4路组相联方式，则TLB共有4组，虚页号的低2位作为TLB组索引，高18位作为TLB标记。据此可知，对于虚拟地址为0x8048c08的指令I，TLB组索引为0b00 = 0，TLB标记为0x2012.查询TLB的第0组，没有匹配的标记。原来TLB是个烟雾弹。
+注意到题目中给出了指令I所在页在主存中分配的页框号为1020（我们将其视为十六进制处理），则指令I存放的主存地址为0x1020c08。</p>
+<p>（7）指令cache的数据区容量为8KB，主存块大小32B，采用2-路组相联映射，则cache有$\frac{8KB}{32B} = 2^{8} = 256$行，128组。指令I的地址为0x8048c08，后5位为块内地址，中7位为cache索引组号，为$0b1100000 = 0x60$，因此将映射至cache的第0x60=96组中。考虑到I的地址为0x8048c08，其不在主存块起始位置，大概率不会发生cache缺失（执行此前指令时很可能已经装载）。</p>
+<p>（8）当N = 2000时，链接后确定a的首地址为0x8049300，页大小为$4KB = 2^{12}B$，起始虚页号为$0x8049$；共有2000个long型数据元素，每个数据元素分配4字节空间，对于按字节编址，数组a连续存放，末尾为$0x8049300 + 2000 \times 4 = 0x8049300 + 0x1F40 = 0x8051240$。因此数组a占用3个页面，每个页的虚页号依次为0x8049、0x8050、0x8051。数组元素a[1200]应该位于虚页0x8050中。</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

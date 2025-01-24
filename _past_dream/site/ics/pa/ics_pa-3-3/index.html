@@ -363,6 +363,136 @@
                 
   
   
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ICS_理论试题选解
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            ICS_理论试题选解
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第4章 程序的链接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第6章 层次结构存储系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第7章 异常控制流
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第8章 I/O操作的实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -378,10 +508,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -392,8 +522,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             ICS_PA(x86)
           </label>
@@ -605,6 +735,120 @@
 
 
 <h1 id="pa-3-3">PA 3-3 分页机制——超越容量的界限</h1>
+<p>在上一节中，我们实现从逻辑地址到线性地址的转换。在实现分页机制之前，线性地址就当做物理地址使用。而自从80386开始，计算机又提供了一种全新的存储管理方式，那就是分页机制。在分页机制下，每一个进程都拥有独立的存储空间。同时，每一个进程独立的存储空间又具有相同的地址划分方式。此时，线性地址就需要通过进一步的转换，才能获得最终要访问的物理地址。</p>
+<p><img alt="pa-3-3" src="../pa_pic/pa-3-3.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">分页机制的模拟</p>
+<ol>
+<li>
+<p>修改Kernel和testcase中<code>Makefile</code>的链接选项</p>
+</li>
+<li>
+<p>在<code>include/config.h</code>头文件中定义宏<code>IA32_PAGE</code>并<code>make clean</code></p>
+</li>
+<li>
+<p>在<code>CPU_STATE</code>中添加<code>CR3</code>寄存器</p>
+</li>
+<li>
+<p>修改<code>laddr_read()</code>和<code>laddr_write()</code>，适时调用<code>page_translate()</code>函数进行地址翻译</p>
+</li>
+<li>
+<p>修改Kernel的<code>loader()</code>，使用<code>mm_malloc</code>来完成对用户进程空间的分配</p>
+</li>
+</ol>
+</div>
+<p>首先需要处理的是在<code>CPU_STATE</code>中添加<code>CR3</code>寄存器，这需要我们查阅i386手册，与前述CR0一致的，我们可以找到这样的描述
+<img alt="CR3" src="../pa_pic/3-3-CR3.png" />
+由此也可以写出<code>CR3</code>的结构模拟
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">reserve</span><span class="w"> </span><span class="o">:</span><span class="mi">12</span><span class="p">;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">pdbr</span><span class="w"> </span><span class="o">:</span><span class="mi">20</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">val</span><span class="p">;</span><span class="w">   </span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span><span class="w"> </span><span class="n">CR3</span><span class="p">;</span>
+</code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">PA3-3的一个小提示</p>
+<p>在本节的<code>page_translate()</code>函数中，我们发现当<code>#define TLB_ENABLED</code>时，框架代码给出了TLB查询的实现。因此在继续进行PA3-3时，我们可以先设置<code>#define TLB_ENABLED</code>，然后进行laddr_read和laddr_write的实现，最后再取消<code>#define TLB_ENABLED</code>并实现<code>page_translate()</code>函数。</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">一个需要注意的地方</p>
+<p>laddr_read()和laddr_write()的行为也要发生改变：当CR0的PG位被置为1时，需要按照上一小节中所述的方法，查询两级页表，将线性地址转换成物理地址再加以访问。注意在laddr_read()和laddr_write()中要处理地址访问跨越页边界的情形，若发生跨越页边界，则应当将一次读写拆分成两次物理地址读写来进行。</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">一个投机取巧的实现</p>
+<p>你不难注意到，这样实现也可以通过所有的测试样例，但是，这并不是一个好的实现。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">laddr_read</span><span class="p">(</span><span class="n">laddr_t</span><span class="w"> </span><span class="n">laddr</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">){</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#ifdef IA32_PAGE</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">cr0</span><span class="p">.</span><span class="n">pg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="n">paddr_t</span><span class="w"> </span><span class="n">paddr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page_translate</span><span class="p">(</span><span class="n">laddr</span><span class="p">);</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">paddr_read</span><span class="p">(</span><span class="n">paddr</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">paddr_read</span><span class="p">(</span><span class="n">laddr</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="cp">#else</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">paddr_read</span><span class="p">(</span><span class="n">laddr</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="cp">#endif</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="kt">void</span><span class="w"> </span><span class="nf">laddr_write</span><span class="p">(</span><span class="n">laddr_t</span><span class="w"> </span><span class="n">laddr</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">data</span><span class="p">){</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w">   </span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="cp">#ifdef IA32_PAGE</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">cr0</span><span class="p">.</span><span class="n">pg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">        </span><span class="n">paddr_t</span><span class="w"> </span><span class="n">paddr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">page_translate</span><span class="p">(</span><span class="n">laddr</span><span class="p">);</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">        </span><span class="n">paddr_write</span><span class="p">(</span><span class="n">paddr</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w">  </span><span class="n">paddr_write</span><span class="p">(</span><span class="n">laddr</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="cp">#else</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="n">paddr_write</span><span class="p">(</span><span class="n">laddr</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="cp">#endif</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="p">}</span>
+</code></pre></div></p>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">一个错误的实现</p>
+<p>或许在PA的漫漫长途上，一些错误再所难免，在PA3-3中，我犯了一个错误，并在后面造成了灾难性的后果。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uint32_t laddr_read(laddr_t laddr, size_t len){
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>assert(len == 1 || len == 2 || len == 4);
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    if( cpu.cr0.pg == 1) {
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        if (laddr + len - 1 &gt; (laddr |0xFFF)) {
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>            paddr_t paddr = page_translate(laddr);
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>            uint32_t temp_l = paddr_read(paddr, (((laddr &gt;&gt; 12) &lt;&lt; 12)|0xFFF) - laddr + 1);
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>            paddr = page_translate((laddr|0xFFF) + 1);
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>            uint32_t temp_h = paddr_read(paddr, len - ((laddr |0xFFF) - laddr + 1));
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>            uint32_t res = (temp_h &lt;&lt; (8 * (laddr|0xFFF) - laddr + 1)) + temp_l;
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>            return res;
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        } else {
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>            paddr_t paddr = page_translate(laddr);
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>            return paddr_read(paddr, len);  
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        }
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    } else {
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        return paddr_read(laddr, len);
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    }
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>}
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>void laddr_write(laddr_t laddr, size_t len, uint32_t data){
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    assert(len == 1 || len == 2 || len == 4);
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    if( cpu.cr0.pg == 1) {
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        if (laddr + len - 1 &gt; (laddr|0xFFF)) {
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>            paddr_t paddr = page_translate(laddr);
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>            paddr_write(paddr, (laddr|0xFFF) - laddr + 1, data &amp; (0xFFFFFFFF &gt;&gt; (8 * (laddr|0xFFF) - laddr + 1)));
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>            paddr = page_translate((laddr|0xFFF) + 1);
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>            paddr_write(paddr, len - (((laddr|0xFFF) - laddr + 1)), data &gt;&gt; (8 * ((laddr|0xFFF) - laddr + 1)));
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    }   else{
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>            paddr_t paddr = page_translate(laddr);
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>            paddr_write(paddr, len, data);  
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>        }
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>    }else{
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>        paddr_write(laddr, len, data);
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    }
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>}
+</code></pre></div></p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">为什么我在这里给出了我曾经错误的实现</p>
+<p>我曾经想，作为一份看起来很正式的学习记录，不应该出现错误或误导。但是，我后来发现，这并不是一个好的学习记录。本记录的写作之初心是记录学习过程，而不是记录学习成果。因此，我决定在错误的地方加上注释，以提醒自己，也提醒后来者。正如我的一个同学说的</p>
+<blockquote>
+<p>那不是黑历史 那是来时路</p>
+</blockquote>
+</div>
 
 
 

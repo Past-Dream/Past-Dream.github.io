@@ -5,6 +5,11 @@ nav:
     - Home: index.md
     - ICS: 
         - ICS: ics/ics_pre.md
+        - ICS_理论试题选解:
+          - 第4章 程序的链接: ics/theory/ICS-04.md
+          - 第6章 层次结构存储系统: ics/theory/ICS-06.md
+          - 第7章 异常控制流: ics/theory/ICS-07.md
+          - 第8章 I/O操作的实现: ics/theory/ICS-08.md
         - ICS_PA(x86): 
           - 在PA开始之前（x86）: ics/ics_pa_pre.md
           - PA 3-1 更快访问的追求: ics/pa/ics_pa-3-1.md

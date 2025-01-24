@@ -4,4 +4,17 @@
 
 ![PA-4-1](pa_pic/pa-4-1.png)
 
+### 通过自陷实现系统调用
+!!! info "通过自陷实现系统调用"
+    1.在include/config.h中定义宏IA32_INTR并make clean；
+    2.在nemu/include/cpu/reg.h中定义IDTR结构体，并在CPU_STATE中添加idtr；
+    3.实现包括lidt、cli、sti、int、pusha、popa、iret等指令；
+    4.在nemu/src/cpu/intr.c中实现raise_intr()函数;
+
+
+!!! tip "关于指令实现的一个小提示"
+    正如我们多次提及的那样，我们在实现指令时，可以参考框架代码中提供的指令参考```__ref_```，或许大部分时间你觉得指令实现十分顺利，但是如果你遇到一些奇怪的问题时，这是一个十分重要的调试手段
+
+
+
 ![PA4-1-Hello-inline执行结果](pa_pic/4-1-hello_inline.png)

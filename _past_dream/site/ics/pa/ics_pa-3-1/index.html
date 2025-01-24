@@ -363,6 +363,136 @@
                 
   
   
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ICS_理论试题选解
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            ICS_理论试题选解
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第4章 程序的链接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第6章 层次结构存储系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第7章 异常控制流
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/ICS-08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第8章 I/O操作的实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -378,10 +508,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -392,8 +522,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             ICS_PA(x86)
           </label>
@@ -605,6 +735,49 @@
 
 
 <h1 id="pa-3-1">PA 3-1 高速缓存的模拟——更快访问的追求</h1>
+<p>CPU的每次访存都需要进过一系列的信号转换，最后到一个速度受限的DRAM上去完成数据的存取。由于每一条指令的执行都至少需要进行一次访存。如果不采取有效措施，那么系统速度就会卡在DRAM这一个瓶颈上，CPU造的再快也没有效果。那如何提高访存的效率呢？我们可以自然地想到从两个地方着手：</p>
+<div class="admonition note">
+<p class="admonition-title">高速缓存</p>
+<ol>
+<li>
+<p>采用比DRAM更快的器件，于是我们想到采用无需刷新的静态随机存取存储器（Static Random Access Memory，SRAM）来代替DRAM；</p>
+</li>
+<li>
+<p>让存储部件离CPU更近一点，我们把SRAM直接放到CPU的芯片里面。</p>
+</li>
+</ol>
+</div>
+<p>事实表明，这是一种很成功的做法，能够使这一部分SRAM的存取速度相比DRAM提高十几甚至上百倍，CPU能够在几个时钟周期内就完成对SRAM数据的访问。我们将这一部分造在CPU中的SRAM称为高速缓存（Cache）。</p>
+<p><img alt="pa-3-1" src="../pa_pic/pa-3-1.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">实现Cache</p>
+<p>在<code>include/config.h</code>中定义宏<code>CACHE_ENABLED</code>并<code>make clean</code>； 
+在NEMU中实现一个cache，它的性质如下:</p>
+<ol>
+<li>
+<p>cache block存储空间的大小为64B</p>
+</li>
+<li>
+<p>cache存储空间的大小为64KB</p>
+</li>
+<li>
+<p>8-way set associative</p>
+</li>
+<li>
+<p>标志位只需要valid bit即可</p>
+</li>
+<li>
+<p>替换算法采用随机方式</p>
+</li>
+<li>
+<p>write through</p>
+</li>
+<li>
+<p>not write allocate</p>
+</li>
+</ol>
+<p>你还需要在<code>nemu/src/memory/memory.c</code>的<code>init_mem()</code>函数中对cache进行初始化，将所有valid bit置为无效即可。实现后，修改<code>memory.c</code>中的<code>paddr_read()</code>和<code>paddr_write()</code>函数，让它们读写cache，当缺失时由cache负责调用<code>hw_mem_read()</code>和<code>hw_mem_write()</code>读写DRAM。</p>
+</div>
 
 
 
