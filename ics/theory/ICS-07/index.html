@@ -88,6 +88,8 @@
       
     
     
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -492,11 +494,11 @@
         <li class="md-nav__item">
   <a href="#7" class="md-nav__link">
     <span class="md-ellipsis">
-      《计算机系统基础》第7章 异常控制流 理论作业
+      《计算机系统基础》第7章 异常控制流
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="《计算机系统基础》第7章 异常控制流 理论作业">
+    <nav class="md-nav" aria-label="《计算机系统基础》第7章 异常控制流">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -796,11 +798,11 @@
         <li class="md-nav__item">
   <a href="#7" class="md-nav__link">
     <span class="md-ellipsis">
-      《计算机系统基础》第7章 异常控制流 理论作业
+      《计算机系统基础》第7章 异常控制流
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="《计算机系统基础》第7章 异常控制流 理论作业">
+    <nav class="md-nav" aria-label="《计算机系统基础》第7章 异常控制流">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -852,14 +854,14 @@
 
   <h1>第7章 异常控制流</h1>
 
-<h2 id="7">《计算机系统基础》第7章 异常控制流 理论作业</h2>
+<h2 id="7">《计算机系统基础》第7章 异常控制流</h2>
 <hr />
 <h4 id="3">第3题</h4>
 <p>根据《计算机系统基础》7.1.2节内容，不同进程的逻辑控制流在时间上有交错或重叠的情况称为<strong>并发</strong>，两个同时执行的进程的逻辑控制流称为<strong>并行</strong>。并行是并发执行的一个特例，并行执行的两个进程一定只能同时运行在不同的处理器或处理器的不同核上；而并发执行与处理器核数没有关系。
 据此，本题中进程对P1-P2存在并发运行；进程对P1-P3存在并发运行；进程对P1-P4存在并发运行；进程对P2-P3存在并发运行；进程对P3-P4存在并发运行。</p>
 <h4 id="4">第4题</h4>
 <p>（1）根据《计算机系统基础》6.5.3节内容，在分页式虚拟存储系统中虚拟存储管理采用“请求分页”思想，每次访问指令或数据仅将当前需要的页从硬盘调入主存某页框中，而进程中其他不活跃页面保留在磁盘。当需要访问的虚拟页不在内存中时发生缺页异常，此时磁盘将缺失页面装入主存。
-本题中，我们关心取指令操作，这一操作访问的是指令的地址，第1行对应的虚拟地址为0x80482c0，页大小$4KB = 2^{12}B$，则7条指令均位于虚页号为0x8048的虚拟页中且首条指令不位于页的起始地址，在执行前序指令时认为该页已被装入主存，不会发生缺页异常。
+本题中，我们关心取指令操作，这一操作访问的是指令的地址，第1行对应的虚拟地址为0x80482c0，页大小<span class="arithmatex">\(4KB = 2^{12}B\)</span>，则7条指令均位于虚页号为0x8048的虚拟页中且首条指令不位于页的起始地址，在执行前序指令时认为该页已被装入主存，不会发生缺页异常。
 （2）执行第1、2条指令时较可能发生缺页异常，属于可恢复的问题。执行第6条指令时不会发生缺页异常，尽管b[2500]与b[1000]不在同一个虚拟页中，但是第2条指令执行时将虚页号为0x804a的虚拟页装入了内存（注意到b[2500]和k在一个地址）。执行第7条指令时很可能发生页故障，因为可能涉及非法地址访问/访问越权（超出可读写数据区范围），这个问题是不可恢复的，也即会看到我在PA和lab中经常遇到的、“喜闻乐见”的（这里引用lab3的失败提示）
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Welcome to the buffer overflow attack lab.Reading from your solution file ...Task failed.
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Program received signal SIGSEGV, Segmentation fault.
@@ -957,6 +959,12 @@
     
     
       <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

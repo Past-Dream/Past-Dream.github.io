@@ -88,6 +88,8 @@
       
     
     
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -450,11 +452,11 @@
         <li class="md-nav__item">
   <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      《计算机系统基础》第4章 程序的链接 理论作业
+      《计算机系统基础》第4章 程序的链接
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="《计算机系统基础》第4章 程序的链接 理论作业">
+    <nav class="md-nav" aria-label="《计算机系统基础》第4章 程序的链接">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -841,11 +843,11 @@
         <li class="md-nav__item">
   <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      《计算机系统基础》第4章 程序的链接 理论作业
+      《计算机系统基础》第4章 程序的链接
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="《计算机系统基础》第4章 程序的链接 理论作业">
+    <nav class="md-nav" aria-label="《计算机系统基础》第4章 程序的链接">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -942,7 +944,7 @@
 
   <h1>第4章 程序的链接</h1>
 
-<h2 id="4">《计算机系统基础》第4章 程序的链接 理论作业</h2>
+<h2 id="4">《计算机系统基础》第4章 程序的链接</h2>
 <hr />
 <h3 id="3">第3题</h3>
 <p>链接器在生成可执行文件时需要完成符号解析，符号解析需要使用符号表。根据《计算机系统基础》第193-194页的内容，对于某个C程序模块m，包含在符号表中的符号有三种类型：全局符号（在m中被定义，在其他模块中引用）、外部符号（其他模块定义，在m中引用）、本地符号（在m中被定义，在m中引用，包括带static属性的函数名和全局变量名）。
@@ -1082,7 +1084,7 @@
 $$
 0x8048386 + 0x12 = 0x8048398
 $$
-由题目知，swap函数紧跟在main后，首地址按4字节边界对齐，则swap函数起始地址为$0x8048398$。
+由题目知，swap函数紧跟在main后，首地址按4字节边界对齐，则swap函数起始地址为<span class="arithmatex">\(0x8048398\)</span>。
 根据《计算机系统基础》第203页的内容，IA-32中转移目标地址（有效地址）计算公式为：
 $$
 转移目标地址 = PC + 偏移地址
@@ -1145,6 +1147,12 @@ $$
     
     
       <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

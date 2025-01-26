@@ -88,6 +88,8 @@
       
     
     
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -689,34 +691,58 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
+      代码实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="代码实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
       串口的模拟
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       硬盘的加载
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       键盘的交互
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       缤纷的世界
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      思考习题
     </span>
   </a>
   
@@ -796,34 +822,58 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
+      代码实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="代码实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
       串口的模拟
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       硬盘的加载
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       键盘的交互
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       缤纷的世界
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      思考习题
     </span>
   </a>
   
@@ -849,19 +899,28 @@
 <p><img alt="PA-4-2" src="../pa_pic/pa-4-2.png" /></p>
 <div class="admonition question">
 <p class="admonition-title">冯诺依曼的构想？</p>
-<p>冯·诺依曼体系结构是现代计算机的基础，现在大多计算机仍是冯·诺依曼计算机的组织结构上作了一些改进。冯·诺依曼也因此被人们称为“计算机之父”。
-如你所见，尽管我们在理论课程学习的第一章就学习了冯·诺依曼体系结构，但是时至今日我们的NEMU才将其五大组成部分都实现模拟。
-将指令和数据同时存放在存储器中，是冯·诺依曼计算机方案的特点之一。在这一体系下我们认为计算机由控制器、运算器、存储器、输入设备、输出设备五部分组成。我们在很早就实现了CPU、内存、寄存器等部分，但是还没有实现I/O设备。
-在本阶段中，我们将实现I/O设备，使NEMU能够与用户进行交互，完成更加丰富的功能，从而实现一个完整的计算机，因此我们称这一阶段为“冯诺依曼的构想”。</p>
+<p>冯·诺依曼体系结构是现代计算机的基础，现在大多计算机仍是冯·诺依曼计算机的组织结构上作了一些改进。冯·诺依曼也因此被人们称为“计算机之父”。</p>
+<p>如你所见，尽管我们在理论课程学习的第一章就学习了冯·诺依曼体系结构，但是时至今日我们的NEMU才将其五大组成部分都实现模拟。</p>
+<p>将指令和数据同时存放在存储器中，是冯·诺依曼计算机方案的特点之一。在这一体系下我们认为计算机由控制器、运算器、存储器、输入设备、输出设备五部分组成。我们在很早就实现了CPU、内存、寄存器等部分，但是还没有实现I/O设备。</p>
+<p>在本阶段中，我们将实现I/O设备，使NEMU能够与用户进行交互，完成更加丰富的功能，从而实现一个完整的计算机，因此我们称这一阶段为“冯诺依曼的构想”。</p>
 </div>
-<h3 id="_1">串口的模拟</h3>
+<h2 id="_1">代码实现</h2>
+<h3 id="_2">串口的模拟</h3>
 <div class="admonition info">
 <p class="admonition-title">完成串口的模拟</p>
 <ol>
-<li>在<code>include/config.h</code>中定义宏<code>HAS_DEVICE_SERIAL</code>并<code>make clean</code>；</li>
-<li>实现<code>in</code>和<code>out</code>指令；</li>
-<li>实现<code>serial_printc()</code>函数；</li>
-<li>运行<code>hello-inline</code>测试用例，对比实现串口前后的输出内容的区别。</li>
+<li>
+<p>在<code>include/config.h</code>中定义宏<code>HAS_DEVICE_SERIAL</code>并<code>make clean</code>；</p>
+</li>
+<li>
+<p>实现<code>in</code>和<code>out</code>指令；</p>
+</li>
+<li>
+<p>实现<code>serial_printc()</code>函数；</p>
+</li>
+<li>
+<p>运行<code>hello-inline</code>测试用例，对比实现串口前后的输出内容的区别。</p>
+</li>
 </ol>
 </div>
 <p>IN 指令用于从指定的I/O端口读取数据到CPU的寄存器中。该指令在汇编语言中是专门用来进行端口读操作的，允许CPU直接与外部设备通信。当执行 IN 指令时，CPU会根据提供的端口号从对应的I/O端口读取一个字节（8位）、一个字（16位）或双字（32位）的数据，并将其存储到目标寄存器中。</p>
@@ -946,7 +1005,7 @@
 </code></pre></div>
 以上，我们完成了串口的模拟，在<code>make test_pa-4-2</code>运行<code>hello-inline</code>测试用例，对比实现串口前后的输出内容的区别。可以发现，输出内容前的<code>nemu trap output:</code>标记消失了，这标志着我们通过了PA-4-2的第一阶段。
 <img alt="串口输出" src="../pa_pic/4-2-hello_inline.png" /></p>
-<h3 id="_2">硬盘的加载</h3>
+<h3 id="_3">硬盘的加载</h3>
 <div class="admonition info">
 <p class="admonition-title">实现从硬盘加载程序</p>
 <ol>
@@ -996,7 +1055,7 @@
 </div>
 <p>在完成从硬盘加载程序的模拟后，我们可以通过<code>make test_pa-4-2</code>执行测试用例，观察输出测试信息，会发现ELF文件的装载<code>Log</code>信息由<code>ELF loading from ram disk.</code>变为了<code>ELF loading from hard disk.</code>并且测试用例执行正常，这标志着我们通过了PA-4-2的第二阶段。
 <img alt="硬盘加载" src="../pa_pic/4-2-hard_disk.png" /></p>
-<h3 id="_3">键盘的交互</h3>
+<h3 id="_4">键盘的交互</h3>
 <div class="admonition info">
 <p class="admonition-title">完成键盘的模拟</p>
 <ol>
@@ -1010,7 +1069,7 @@
 </div>
 <p>这一阶段在代码部分似乎对于我们没有提出很高要求，如果前述实现正确，我们可以相对容易观察到本阶段的正确通过。在实现了模拟键盘后，我们能开启最后一个测试用例<code>echo</code>。运行<code>echo</code>，每次在窗口中键入一个英文字母，就会在标准输出中打印一个对应的大写字母，这标志着我们通过了PA-4-2的第三阶段。</p>
 <p><img alt="键盘交互" src="../pa_pic/4-2-echo.png" /></p>
-<h3 id="_4">缤纷的世界</h3>
+<h3 id="_5">缤纷的世界</h3>
 <div class="admonition info">
 <p class="admonition-title">实现VGA的MMIO</p>
 <ol>
@@ -1028,7 +1087,7 @@
 </li>
 </ol>
 </div>
-<p>这里我暂时不想过多解释。实现VGA后可能的颜色输出如下：</p>
+<p>这里我暂时不想过多解释，因为不少奇怪的实现也不会触发<code>video_mapping_read_test()</code>的失败，这也很有意思。实现VGA后可能的颜色输出如下：</p>
 <p><img alt="VGA" src="../pa_pic/4-2-vga.png" /></p>
 <p>事实上，如果在执行过程中没有遇到<code>assert</code>终止，那么就意味着通过了PA-4-2的第四阶段的<code>video_mapping_read_test()</code>。
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">video_mapping_read_test</span><span class="p">()</span>
@@ -1041,10 +1100,102 @@
 <a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="p">}</span>
 </code></pre></div></p>
+<h2 id="_6">思考习题</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;trap.h&quot;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/syscall.h&gt;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1">// read a byte from the port</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">in_byte</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">port</span><span class="p">)</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p">{</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;in %1, %0&quot;</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">                 </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=a&quot;</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">                 </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;d&quot;</span><span class="p">(</span><span class="n">port</span><span class="p">));</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="p">}</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="c1">// register a handle of interrupt request in the Kernel</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="kt">void</span><span class="w"> </span><span class="nf">add_irq_handler</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">irq</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">handler</span><span class="p">)</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="p">{</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">    </span><span class="c1">// refer to kernel/src/syscall/do_syscall.c to understand what has happened</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">    </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;int $0x80&quot;</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">                 </span><span class="o">:</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">                 </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;a&quot;</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="p">(</span><span class="n">irq</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;c&quot;</span><span class="p">(</span><span class="n">handler</span><span class="p">));</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="p">}</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="kt">void</span><span class="w"> </span><span class="nf">writec</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="p">{</span>
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w">    </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;int $0x80&quot;</span>
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="w">                 </span><span class="o">:</span>
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="w">                 </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;a&quot;</span><span class="p">(</span><span class="n">SYS_write</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="p">(</span><span class="n">fd</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;c&quot;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;d&quot;</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="p">}</span>
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="kt">void</span><span class="w"> </span><span class="nf">printc</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="p">{</span>
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="w">    </span><span class="n">writec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="p">}</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="kt">char</span><span class="w"> </span><span class="nf">translate_key</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">scan_code</span><span class="p">);</span>
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>
+<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="c1">// the keyboard event handler, called when an keyboard interrupt is fired</span>
+<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="kt">void</span><span class="w"> </span><span class="nf">keyboard_event_handler</span><span class="p">()</span>
+<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="p">{</span>
+<a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>
+<a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">key_pressed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_byte</span><span class="p">(</span><span class="mh">0x60</span><span class="p">);</span>
+<a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>
+<a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a><span class="w">    </span><span class="c1">// translate scan code to ASCII</span>
+<a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">translate_key</span><span class="p">(</span><span class="n">key_pressed</span><span class="p">);</span>
+<a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a><span class="w">        </span><span class="c1">// can you now fully understand Fig. 8.3 on pg. 317 of the text book?</span>
+<a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a><span class="w">        </span><span class="n">printc</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+<a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a><span class="p">}</span>
+<a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a>
+<a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a><span class="p">{</span>
+<a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a><span class="w">    </span><span class="c1">// register for keyboard events</span>
+<a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a><span class="w">    </span><span class="n">add_irq_handler</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">keyboard_event_handler</span><span class="p">);</span>
+<a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a><span class="w">        </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">&quot;hlt&quot;</span><span class="p">);</span>
+<a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a><span class="p">}</span>
+<a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a>
+<a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a><span class="c1">// scan code for letter a-z</span>
+<a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">letter_code</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a><span class="w">    </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w"> </span><span class="mi">46</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w"> </span><span class="mi">34</span><span class="p">,</span><span class="w"> </span><span class="mi">35</span><span class="p">,</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="mi">36</span><span class="p">,</span>
+<a id="__codelineno-9-65" name="__codelineno-9-65" href="#__codelineno-9-65"></a><span class="w">    </span><span class="mi">37</span><span class="p">,</span><span class="w"> </span><span class="mi">38</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">49</span><span class="p">,</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w"> </span><span class="mi">31</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<a id="__codelineno-9-66" name="__codelineno-9-66" href="#__codelineno-9-66"></a><span class="w">    </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="mi">47</span><span class="p">,</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w"> </span><span class="mi">44</span><span class="p">};</span>
+<a id="__codelineno-9-67" name="__codelineno-9-67" href="#__codelineno-9-67"></a>
+<a id="__codelineno-9-68" name="__codelineno-9-68" href="#__codelineno-9-68"></a><span class="kt">char</span><span class="w"> </span><span class="nf">translate_key</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">scan_code</span><span class="p">)</span>
+<a id="__codelineno-9-69" name="__codelineno-9-69" href="#__codelineno-9-69"></a><span class="p">{</span>
+<a id="__codelineno-9-70" name="__codelineno-9-70" href="#__codelineno-9-70"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<a id="__codelineno-9-71" name="__codelineno-9-71" href="#__codelineno-9-71"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">26</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<a id="__codelineno-9-72" name="__codelineno-9-72" href="#__codelineno-9-72"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-9-73" name="__codelineno-9-73" href="#__codelineno-9-73"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">letter_code</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">scan_code</span><span class="p">)</span>
+<a id="__codelineno-9-74" name="__codelineno-9-74" href="#__codelineno-9-74"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-9-75" name="__codelineno-9-75" href="#__codelineno-9-75"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">0x41</span><span class="p">;</span>
+<a id="__codelineno-9-76" name="__codelineno-9-76" href="#__codelineno-9-76"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-9-77" name="__codelineno-9-77" href="#__codelineno-9-77"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-78" name="__codelineno-9-78" href="#__codelineno-9-78"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-9-79" name="__codelineno-9-79" href="#__codelineno-9-79"></a><span class="p">}</span>
+</code></pre></div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>针对echo测试用例，在实验报告中，结合代码详细描述：注册监听键盘事件是怎么完成的？</p>
+</div>
+<p>用户态程序通过调用<code>add_irq_handler</code>请求注册一个中断处理函数；<code>add_irq_handler</code>构建并发起一个系统调用，使用<code>int 0x80</code>指令切换到内核态。内核接收到系统调用请求后，基于eax寄存器的值选择并执行对应的系统调用处理函数<code>do_syscall</code>。在<code>do_syscall</code>中，根据传递过来的参数调用<code>add_irq_handle</code>函数。<code>add_irq_handle</code>函数负责将新的中断处理函数添加到内核的中断处理机制中，以便在未来发生相应中断时能够正确响应。在<code>add_irq_handle</code>函数中，中断处理函数被存储在一个称为<code>handle</code>的数组中，这个数组可能就是中断向量表的一部分或者是专门为此目的设置的数据结构。这一步完成了中断处理函数的实际注册过程。</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>从键盘按下一个键到控制台输出对应的字符，系统的执行过程是什么？如果涉及与之前报告重复的内容，简单引用之前的内容即可。</p>
+</div>
+<p>首先，当用户按下键盘上的某个键时，NEMU中的<code>NEMU_SDL_Thread()</code>会捕获到这个键盘事件并传递给<code>keyboard_event_handler</code>函数进行处理。在这个处理函数中，程序调用了<code>in_byte</code>函数以获取键盘的具体输入内容。<code>in_byte</code>函数的作用是从硬件接口读取数据，并将结果存放在寄存器eax中。接下来需要对其进行译码，以便将其转换成可以理解的字符。完成译码后，通过调用<code>printfc</code>函数进一步处理。<code>printfc</code>函数内部调用了<code>writec</code>函数，而<code>writec</code>函数则使用了系统调用<code>SYS_write</code>来实现字符的输出。当<code>SYS_write</code>被调用时，控制权转移到内核态下的<code>do_syscall</code>函数。<code>do_syscall</code>会调用<code>fs_write</code>函数，在<code>fs_write</code>内部调用了<code>serial_printc</code>函数。这个函数负责将字符发送到串行端口或任何其他指定的输出设备。为了实现这一点，<code>serial_printc</code>函数内部使用了<code>out_byte</code>函数，它将数据写入特定的I/O端口地址，从而完成数据的实际传输。</p>
 <div class="admonition success">
 <p class="admonition-title">PA-4-2阶段结束</p>
-<p>今夕是何年？
-考完期末了吗？如果考完了，感觉如何；如果还没有，你准备好了吗？</p>
+<p>今夕是何年？</p>
+<p>考完期末了吗？如果考完了，感觉如何；如果还没有，你准备好了吗？</p>
+<p>至此，PA所有必做任务已经全部完成，你有什么想说的吗？如果你发现了任何记录中的问题，或你有什么想说的，请不要犹豫给我发送邮件。</p>
 </div>
 
 
@@ -1096,6 +1247,12 @@
     
     
       <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

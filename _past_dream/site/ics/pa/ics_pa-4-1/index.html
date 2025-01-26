@@ -88,6 +88,8 @@
       
     
     
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -668,7 +670,31 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
+      代码实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="代码实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
       通过自陷实现系统调用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      思考习题
     </span>
   </a>
   
@@ -769,7 +795,31 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
+      代码实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="代码实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
       通过自陷实现系统调用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      思考习题
     </span>
   </a>
   
@@ -793,19 +843,184 @@
 <h1 id="pa-4-1">PA 4-1 异常和中断的响应——来自外部的声音</h1>
 <p>在之前的程序执行过程中，我们都遵循着指令按序执行，遇到跳转指令则跳转到目的地址的次序来执行指令。这种执行指令的序列所得到的是正常控制流。而在程序正常执行的过程中，CPU经常会遇到来自内部的异常事件或者外部的中断事件而打断原来程序的执行，转而执行操作系统提供的针对这些事件的处理程序。此时形成的控制流就称为异常控制流。这些打断程序正常执行的事件就称为异常或中断。</p>
 <p><img alt="PA-4-1" src="../pa_pic/pa-4-1.png" /></p>
-<h3 id="_1">通过自陷实现系统调用</h3>
+<h2 id="_1">代码实现</h2>
+<h3 id="_2">通过自陷实现系统调用</h3>
 <div class="admonition info">
 <p class="admonition-title">通过自陷实现系统调用</p>
-<p>1.在include/config.h中定义宏IA32_INTR并make clean；
-2.在nemu/include/cpu/reg.h中定义IDTR结构体，并在CPU_STATE中添加idtr；
-3.实现包括lidt、cli、sti、int、pusha、popa、iret等指令；
-4.在nemu/src/cpu/intr.c中实现raise_intr()函数;</p>
+<p>1.在include/config.h中定义宏IA32_INTR并make clean；</p>
+<p>2.在nemu/include/cpu/reg.h中定义IDTR结构体，并在CPU_STATE中添加idtr；</p>
+<p>3.实现包括lidt、cli、sti、int、pusha、popa、iret等指令；</p>
+<p>4.在nemu/src/cpu/intr.c中实现raise_intr()函数;</p>
 </div>
+<p>IDTR与GDTR有着类似的结构，其中包含一个段界限和一个段选择子。段界限用于指示IDT表中描述符的个数，而段选择子用于指示IDT表中描述符的起始位置。我们容易给出实现如下
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">limit</span><span class="w"> </span><span class="o">:</span><span class="mi">16</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">:</span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span><span class="n">IDTR</span><span class="p">;</span>
+</code></pre></div></p>
 <div class="admonition tip">
 <p class="admonition-title">关于指令实现的一个小提示</p>
 <p>正如我们多次提及的那样，我们在实现指令时，可以参考框架代码中提供的指令参考<code>__ref_</code>，或许大部分时间你觉得指令实现十分顺利，但是如果你遇到一些奇怪的问题时，这是一个十分重要的调试手段</p>
 </div>
+<p>与指令实现相关的内容，敬请参考<code>i386</code>手册。在本次实验中，我们需要更多注意顺序的问题。比如<code>pusha</code>和<code>popa</code>的顺序，<code>iret</code>与<code>raise_intr(uint8_t intr_no)</code>的顺序等等，否则也会发生一些期望之外的事件。</p>
+<p>!!!  example "逻辑自洽？一个有意思的实现"
+    你不难注意到，如下实现也可以通过评测。但是如果将<code>iret</code>改为<code>__ref_iret</code>，则无法通过评测。这里涉及了一个自洽的问题，不过十分不推荐这样做。我们所做的<code>x86</code>编程模拟还是应该以模拟实际情况为核心；以及这样做很可能会对日后的调试造成困扰。
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">make_instr_func</span><span class="p">(</span><span class="n">iret</span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#ifdef IA32_SEG</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="p">;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">sreg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SREG_SS</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPR_MEM</span><span class="p">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data_size</span><span class="p">;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">data_size</span><span class="o">/</span><span class="mi">8</span><span class="p">;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">operand_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_dest</span><span class="p">);</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">eip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">val</span><span class="p">;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="p">;</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">sreg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SREG_SS</span><span class="p">;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPR_MEM</span><span class="p">;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data_size</span><span class="p">;</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">data_size</span><span class="o">/</span><span class="mi">8</span><span class="p">;</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="n">operand_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_dest</span><span class="p">);</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">cs</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">val</span><span class="p">;</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="p">;</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">sreg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SREG_SS</span><span class="p">;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPR_MEM</span><span class="p">;</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">    </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data_size</span><span class="p">;</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">data_size</span><span class="w"> </span><span class="o">/</span><span class="mi">8</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="n">operand_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_dest</span><span class="p">);</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">eflags</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">opr_dest</span><span class="p">.</span><span class="n">val</span><span class="p">;</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="cp">#endif  </span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="p">}</span>
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">raise_intr</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">intr_no</span><span class="p">){</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#ifdef IA32_INTR</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">eflags</span><span class="p">.</span><span class="n">val</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="p">;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">sreg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SREG_SS</span><span class="p">;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPR_MEM</span><span class="p">;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">operand_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_src</span><span class="p">);</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">cs</span><span class="p">.</span><span class="n">val</span><span class="p">;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="p">;</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">sreg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SREG_SS</span><span class="p">;</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPR_MEM</span><span class="p">;</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="n">operand_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_src</span><span class="p">);</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">eip</span><span class="p">;</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="p">;</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">sreg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SREG_SS</span><span class="p">;</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="n">opr_src</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPR_MEM</span><span class="p">;</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">    </span><span class="n">operand_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_src</span><span class="p">);</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">    </span><span class="n">GateDesc</span><span class="w"> </span><span class="n">temp_IDT</span><span class="p">;</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">    </span><span class="n">vaddr_t</span><span class="w"> </span><span class="n">loc_ldt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpu</span><span class="p">.</span><span class="n">idtr</span><span class="p">.</span><span class="n">base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">intr_no</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">    </span><span class="n">temp_IDT</span><span class="p">.</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">laddr_read</span><span class="p">(</span><span class="n">loc_ldt</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">    </span><span class="n">temp_IDT</span><span class="p">.</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">laddr_read</span><span class="p">(</span><span class="n">loc_ldt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">temp_IDT</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">0xE</span><span class="p">)</span><span class="w">  </span><span class="n">cpu</span><span class="p">.</span><span class="n">eflags</span><span class="p">.</span><span class="n">IF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">eflags</span><span class="p">.</span><span class="n">TF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">cs</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp_IDT</span><span class="p">.</span><span class="n">selector</span><span class="p">;</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">    </span><span class="n">load_sreg</span><span class="p">(</span><span class="n">SREG_CS</span><span class="p">);</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">    </span><span class="n">cpu</span><span class="p">.</span><span class="n">eip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">temp_IDT</span><span class="p">.</span><span class="n">offset_31_16</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">temp_IDT</span><span class="p">.</span><span class="n">offset_15_0</span><span class="p">;</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="cp">#endif</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="p">}</span>
+</code></pre></div>
+    事实上，<code>pusha</code>和<code>popa</code>指令如果实现合适且逻辑自洽，也可以通过测试。</p>
+<p>在完成上述实现后，我们在工程目录下运行<code>make test_pa-4-1</code>，可以观察到如下结果：</p>
 <p><img alt="PA4-1-Hello-inline执行结果" src="../pa_pic/4-1-hello_inline.png" /></p>
+<p>这标志我们顺利通过了PA4-1的代码模拟部分。</p>
+<h2 id="_3">思考习题</h2>
+<div class="admonition question">
+<p class="admonition-title">PA4-1-1</p>
+<p>详细描述从测试用例中的int $0x80开始一直到HIT_GOOD_TRAP为止的详细的系统行为（完整描述控制的转移过程，即相关函数的调用和关键参数传递过程），可以通过文字或画图的方式来完成</p>
+</div>
+<p>当执行到<code>int $0x80</code>时，CPU会查找中断向量表（IDT），根据中断号0x80找到对应的门描述符并将当前的EFLAGS寄存器、代码段选择子（CS）和指令指针（EIP）压入栈中以保存当前的上下文，以及更新CS和EIP以指向中断服务例程的起始位置，这样就进入了内核态并开始执行内核代码。。这些操作是由opcode中<code>int_</code>指令通过<code>raise_sw_intr</code>调用<code>raise_intr</code>实现的。
+门描述符包含了一个指向处理该中断的服务例程的指针以及一些其他信息（比如所需的特权级别，但是NEMU对此做了简化因此不需要考虑权限），在<code>intr.h</code>中给出了结构体很好的描述了其组成。我们依据selector字段与offset字段更新<code>CS:EIP</code>。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">union</span><span class="w"> </span><span class="nc">GateDescriptor</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">struct</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">offset_15_0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">selector</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">pad0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">privilege_level</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">present</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">offset_31_16</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="p">}</span><span class="w"> </span><span class="n">GateDesc</span><span class="p">;</span>
+</code></pre></div>
+在内核态下，执行的是<code>do_irq.S</code>中的代码（在此阶段前，会先经过一个<code>&lt;vec&gt;</code>的阶段，每一个<code>&lt;vec&gt;</code>由三行汇编代码构成，连续push两次后跳转至<code>asm_do_irq</code>），这部分代码首先会通过pusha指令保存所有通用寄存器的状态，push esp用于保存当前栈指针，这个栈指针指向一个TrapFrame结构，它包含了系统调用前的处理器状态（详见第2题）。接着调用irq_handle来处理特定的中断或异常。调用do_syscall函数进行系统调用（tf又当作参数传给了do_syscall），输出
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Hello, world!
+</code></pre></div>
+完成所有处理后，程序需要恢复之前保存的现场信息，即从栈中弹出先前保存的寄存器值。具体地，popa指令恢复通用寄存器（丢弃esp，ref i386手册第364页），执行一条特殊的指令如iret（中断返回）pop出EIP、CS和EFLAGS，使得控制权返回到用户空间，继续执行int $0x80之后的下一条指令。在<code>hello-inline</code>测试样例中即为HIT_GOOD_TRAP。</p>
+<div class="admonition question">
+<p class="admonition-title">PA4-1-2</p>
+<p>在描述过程中，回答kernel/src/irq/do_irq.S中的push %esp起什么作用，画出在call irq_handle之前，系统栈的内容和esp的位置，指出TrapFrame对应系统栈的哪一段内容</p>
+</div>
+<p>在第1题中我们回答到push esp用于保存当前栈指针，这个栈指针指向一个TrapFrame结构，它包含了系统调用前的处理器状态。TrapFrame 是一个数据结构，它用来保存处理器在进入内核态之前的状态信息。当发生中断、异常或者系统调用时，CPU会自动保存一些寄存器的内容到栈上，包括：EFLAGS标志寄存器，CS代码段选择子，EIP指令指针，错误码irq，通用寄存器EAX, EBX, ECX等
+我们知道在x86架构中栈是从高地址向低地址增长的，一个可能的示意图如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">我是栈，我上面还有...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">eflags.val</td>
+</tr>
+<tr>
+<td style="text-align: center;">cpu.cs.val</td>
+</tr>
+<tr>
+<td style="text-align: center;">eip</td>
+</tr>
+<tr>
+<td style="text-align: center;">eax</td>
+</tr>
+<tr>
+<td style="text-align: center;">ecx</td>
+</tr>
+<tr>
+<td style="text-align: center;">edx</td>
+</tr>
+<tr>
+<td style="text-align: center;">ebx</td>
+</tr>
+<tr>
+<td style="text-align: center;">esp（旧值，iret时会被throwaway）</td>
+</tr>
+<tr>
+<td style="text-align: center;">ebp</td>
+</tr>
+<tr>
+<td style="text-align: center;">esi</td>
+</tr>
+<tr>
+<td style="text-align: center;">edi</td>
+</tr>
+<tr>
+<td style="text-align: center;">（esp指向位置）</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition question">
+<p class="admonition-title">PA4-1-3</p>
+<p>详细描述NEMU和Kernel响应时钟中断的过程和先前的系统调用过程不同之处在哪里？相同的地方又在哪里？可以通过文字或画图的方式来完成。</p>
+</div>
+<p>NEMU和Kernel响应时钟中断的过程和先前的系统调用过程不同之处有：从触发方式看，系统调用由用户程序通过特定指令（如int $0x80）主动发起请求操作系统服务；时钟中断由硬件定时器自动产生通知CPU时间已经流逝了一定的数量。从中断号看，系统调用中断号通常是固定的（如0x80），并且是通过软件指令明确指定的；时钟中断中断号由硬件决定，对于标准PC架构时钟中断一般对应于IRQ 0，会映射到IDT中的某个特定位置（32 + IRQ）。从处理逻辑看，系统调用内核根据传入的系统调用号执行相应的服务例程，之后返回到用户空间继续执行；时钟中断则可能处理与时钟相关的任务。
+NEMU和Kernel响应时钟中断的过程和先前的系统调用过程相同之处有：中断处理流程无论是系统调用还是时钟中断，都会经历类似的步骤来保存现场信息（如PUSH EFLAGS、CS、EIP），查找并跳转至相应的中断处理程序，处理完毕后恢复现场信息并通过iret指令返回；两者都会导致CPU从用户态进入内核态，以允许内核代码执行关键操作；在模拟实现方面都与PA4-1-1中实现的<code>raise_intr</code>进行处理。</p>
+<div class="admonition success">
+<p class="admonition-title">PA-4-1阶段结束</p>
+<p>“生命这样的旅程，要用多少泪水来完整</p>
+<p>心情如何？是不是快要期末考试了？</p>
+<p>相信你这个学期一定学到了很多东西，其中计算机系统基础的内容一定在其中占据了浓墨重彩的一笔。</p>
+</div>
 
 
 
@@ -856,6 +1071,12 @@
     
     
       <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

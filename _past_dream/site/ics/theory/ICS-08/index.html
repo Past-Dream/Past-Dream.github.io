@@ -88,6 +88,8 @@
       
     
     
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -513,11 +515,11 @@
         <li class="md-nav__item">
   <a href="#8-io" class="md-nav__link">
     <span class="md-ellipsis">
-      《计算机系统基础》第8章 I/O操作的实现 理论作业
+      《计算机系统基础》第8章 I/O操作的实现
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="《计算机系统基础》第8章 I/O操作的实现 理论作业">
+    <nav class="md-nav" aria-label="《计算机系统基础》第8章 I/O操作的实现">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -823,11 +825,11 @@
         <li class="md-nav__item">
   <a href="#8-io" class="md-nav__link">
     <span class="md-ellipsis">
-      《计算机系统基础》第8章 I/O操作的实现 理论作业
+      《计算机系统基础》第8章 I/O操作的实现
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="《计算机系统基础》第8章 I/O操作的实现 理论作业">
+    <nav class="md-nav" aria-label="《计算机系统基础》第8章 I/O操作的实现">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -906,7 +908,7 @@
 
   <h1>第8章 I/O操作的实现</h1>
 
-<h2 id="8-io">《计算机系统基础》第8章 I/O操作的实现 理论作业</h2>
+<h2 id="8-io">《计算机系统基础》第8章 I/O操作的实现</h2>
 <hr />
 <h3 id="3">第3题</h3>
 <p>（1）对于该IA-32+Linux系统中执行的用户程序P，该程序的功能是在标准输出设备上输出字符串<code>Hello, world.\n</code>。事实上，我们注意到第4题中给出了用户程序功能等价的C语言代码：
@@ -987,7 +989,7 @@
 [
     500 \times \frac{1}{500MHz} = 1\mu s
 ]
-考虑到除中断服务程序执行时间，还有其他时间花费，实际中断响应处理时间多于$1\mu s$，中断请求间隔时间小于实际中断响应处理时间，因此不可以使用中断控制I/O方式实现外设的输入输出。</p>
+考虑到除中断服务程序执行时间，还有其他时间花费，实际中断响应处理时间多于<span class="arithmatex">\(1\mu s\)</span>，中断请求间隔时间小于实际中断响应处理时间，因此不可以使用中断控制I/O方式实现外设的输入输出。</p>
 <h3 id="12">第12题</h3>
 <p>磁盘的平均数据传输速率为
 [
@@ -1060,6 +1062,12 @@
     
     
       <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

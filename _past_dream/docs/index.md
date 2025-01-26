@@ -16,7 +16,6 @@ I hope I can record my study here and make more like-minded friends.
 
 **CSDN**：[https://pastdream.blog.csdn.net/](https://pastdream.blog.csdn.net/)
 
-##### 我们的征途是星辰大海
-##### Our Conquest Is the Sea of Stars
+!!! quote "自强不息"
 
 ![Past Dream](pic/pastdream.png)

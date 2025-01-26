@@ -6,16 +6,24 @@
 
 !!! question "冯诺依曼的构想？"
     冯·诺依曼体系结构是现代计算机的基础，现在大多计算机仍是冯·诺依曼计算机的组织结构上作了一些改进。冯·诺依曼也因此被人们称为“计算机之父”。
+
     如你所见，尽管我们在理论课程学习的第一章就学习了冯·诺依曼体系结构，但是时至今日我们的NEMU才将其五大组成部分都实现模拟。
+
     将指令和数据同时存放在存储器中，是冯·诺依曼计算机方案的特点之一。在这一体系下我们认为计算机由控制器、运算器、存储器、输入设备、输出设备五部分组成。我们在很早就实现了CPU、内存、寄存器等部分，但是还没有实现I/O设备。
+
     在本阶段中，我们将实现I/O设备，使NEMU能够与用户进行交互，完成更加丰富的功能，从而实现一个完整的计算机，因此我们称这一阶段为“冯诺依曼的构想”。
+
+## 代码实现
 
 ### 串口的模拟
 
 !!! info "完成串口的模拟"
     1. 在`include/config.h`中定义宏`HAS_DEVICE_SERIAL`并`make clean`；
+   
     2. 实现`in`和`out`指令；
+   
     3. 实现`serial_printc()`函数；
+   
     4. 运行`hello-inline`测试用例，对比实现串口前后的输出内容的区别。
 
 IN 指令用于从指定的I/O端口读取数据到CPU的寄存器中。该指令在汇编语言中是专门用来进行端口读操作的，允许CPU直接与外部设备通信。当执行 IN 指令时，CPU会根据提供的端口号从对应的I/O端口读取一个字节（8位）、一个字（16位）或双字（32位）的数据，并将其存储到目标寄存器中。
@@ -175,7 +183,7 @@ void ide_write(uint8_t *buf, uint32_t offset, uint32_t len)
 
     4. 通过`make test_pa-4-2`执行测试用例，观察输出测试颜色信息，并通过`video_mapping_read_test()`。
    
-这里我暂时不想过多解释。实现VGA后可能的颜色输出如下：
+这里我暂时不想过多解释，因为不少奇怪的实现也不会触发`video_mapping_read_test()`的失败，这也很有意思。实现VGA后可能的颜色输出如下：
 
 ![VGA](pa_pic/4-2-vga.png)
 
@@ -192,6 +200,104 @@ void video_mapping_read_test()
 }
 ```
 
+## 思考习题
+
+```C
+#include "trap.h"
+#include <stdint.h>
+#include <sys/syscall.h>
+
+// read a byte from the port
+uint8_t in_byte(uint16_t port)
+{
+	uint8_t data;
+	asm volatile("in %1, %0"
+				 : "=a"(data)
+				 : "d"(port));
+	return data;
+}
+
+// register a handle of interrupt request in the Kernel
+void add_irq_handler(int irq, void *handler)
+{
+	// refer to kernel/src/syscall/do_syscall.c to understand what has happened
+	asm volatile("int $0x80"
+				 :
+				 : "a"(0), "b"(irq), "c"(handler));
+}
+
+void writec(int fd, char c)
+{
+	asm volatile("int $0x80"
+				 :
+				 : "a"(SYS_write), "b"(fd), "c"(&c), "d"(1));
+}
+
+void printc(char c)
+{
+	writec(1, c);
+}
+
+char translate_key(int scan_code);
+
+// the keyboard event handler, called when an keyboard interrupt is fired
+void keyboard_event_handler()
+{
+
+	uint8_t key_pressed = in_byte(0x60);
+
+	// translate scan code to ASCII
+	char c = translate_key(key_pressed);
+	if (c > 0)
+	{
+		// can you now fully understand Fig. 8.3 on pg. 317 of the text book?
+		printc(c);
+	}
+}
+
+int main()
+{
+	// register for keyboard events
+	add_irq_handler(1, keyboard_event_handler);
+	while (1)
+		asm volatile("hlt");
+	return 0;
+}
+
+// scan code for letter a-z
+static int letter_code[] = {
+	30, 48, 46, 32, 18, 33, 34, 35, 23, 36,
+	37, 38, 50, 49, 24, 25, 16, 19, 31, 20,
+	22, 47, 17, 45, 21, 44};
+
+char translate_key(int scan_code)
+{
+	int i;
+	for (i = 0; i < 26; i++)
+	{
+		if (letter_code[i] == scan_code)
+		{
+			return i + 0x41;
+		}
+	}
+	return 0;
+}
+```
+
+!!! question 
+    针对echo测试用例，在实验报告中，结合代码详细描述：注册监听键盘事件是怎么完成的？
+
+用户态程序通过调用`add_irq_handler`请求注册一个中断处理函数；`add_irq_handler`构建并发起一个系统调用，使用`int 0x80`指令切换到内核态。内核接收到系统调用请求后，基于eax寄存器的值选择并执行对应的系统调用处理函数`do_syscall`。在`do_syscall`中，根据传递过来的参数调用`add_irq_handle`函数。`add_irq_handle`函数负责将新的中断处理函数添加到内核的中断处理机制中，以便在未来发生相应中断时能够正确响应。在`add_irq_handle`函数中，中断处理函数被存储在一个称为`handle`的数组中，这个数组可能就是中断向量表的一部分或者是专门为此目的设置的数据结构。这一步完成了中断处理函数的实际注册过程。
+
+
+!!! question 
+    从键盘按下一个键到控制台输出对应的字符，系统的执行过程是什么？如果涉及与之前报告重复的内容，简单引用之前的内容即可。
+
+首先，当用户按下键盘上的某个键时，NEMU中的`NEMU_SDL_Thread()`会捕获到这个键盘事件并传递给`keyboard_event_handler`函数进行处理。在这个处理函数中，程序调用了`in_byte`函数以获取键盘的具体输入内容。`in_byte`函数的作用是从硬件接口读取数据，并将结果存放在寄存器eax中。接下来需要对其进行译码，以便将其转换成可以理解的字符。完成译码后，通过调用`printfc`函数进一步处理。`printfc`函数内部调用了`writec`函数，而`writec`函数则使用了系统调用`SYS_write`来实现字符的输出。当`SYS_write`被调用时，控制权转移到内核态下的`do_syscall`函数。`do_syscall`会调用`fs_write`函数，在`fs_write`内部调用了`serial_printc`函数。这个函数负责将字符发送到串行端口或任何其他指定的输出设备。为了实现这一点，`serial_printc`函数内部使用了`out_byte`函数，它将数据写入特定的I/O端口地址，从而完成数据的实际传输。
+
 !!! success "PA-4-2阶段结束"
     今夕是何年？
+
     考完期末了吗？如果考完了，感觉如何；如果还没有，你准备好了吗？
+    
+    至此，PA所有必做任务已经全部完成，你有什么想说的吗？如果你发现了任何记录中的问题，或你有什么想说的，请不要犹豫给我发送邮件。
