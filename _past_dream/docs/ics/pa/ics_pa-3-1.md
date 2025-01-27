@@ -31,3 +31,26 @@ CPU的每次访存都需要进过一系列的信号转换，最后到一个速�
 
     你还需要在`nemu/src/memory/memory.c`的`init_mem()`函数中对cache进行初始化，将所有valid bit置为无效即可。实现后，修改`memory.c`中的`paddr_read()`和`paddr_write()`函数，让它们读写cache，当缺失时由cache负责调用`hw_mem_read()`和`hw_mem_write()`读写DRAM。
 
+其实`cache`是PA阶段相对独立的一部分，如果维护良好，开关cache可以得到`NEMU`相同的运行效果。值得一提的是，`NEMU`的`cache`并不提高程序执行的速度，反而会降低程序执行的速度。
+
+在`nemu/include/memory/mmu/cache.h`中给出了Cacheline结构之基本定义如下
+```c
+typedef struct Cacheline{
+    uint8_t valid_bit;
+    uint32_t tag;
+    uint8_t data[64];
+} CacheLine;
+```
+其中`valid_bit`为有效位，`tag`为标记位，`data`为数据位。
+从`cache`的存储空间大小为64KB，`cache`的block存储空间大小为64B，所以`cache`的`set`个数为64KB/64B=1024，`cache`的`way`个数为8，所以`cache`的`index`个数为1024/8=128，`cache`的`offset`个数为64/8=8。
+在`nemu/src/memory/mmu/cache.c`中给出了`cache`的初始化函数`init_cache()`如下
+```c
+#ifdef CACHE_ENABLED
+CacheLine cache[1024];
+void init_cache()
+{
+	for(int i = 0; i < 1024; i ++){
+	    cache[i].valid_bit = 0;
+	}
+}
+```
