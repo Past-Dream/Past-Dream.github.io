@@ -3,21 +3,52 @@ site_description: Past Dream's blog
 site_url: https://pastdream.github.io/
 nav:
     - Home: index.md
-    - ICS: 
-        - ICS: ics/ics_pre.md
-        - ICS_理论试题选解:
-          - 第4章 程序的链接: ics/theory/ICS-04.md
-          - 第6章 层次结构存储系统: ics/theory/ICS-06.md
-          - 第7章 异常控制流: ics/theory/ICS-07.md
-          - 第8章 I/O操作的实现: ics/theory/ICS-08.md
-        - ICS_PA(x86): 
-          - 在PA开始之前（x86）: ics/ics_pa_pre.md
-          - PA 3-1 更快访问的追求: ics/pa/ics_pa-3-1.md
-          - PA 3-2 虚实交错的魔法: ics/pa/ics_pa-3-2.md
-          - PA 3-3 超越容量的界限: ics/pa/ics_pa-3-3.md
-          - PA 4-1 来自外部的声音: ics/pa/ics_pa-4-1.md
-          - PA 4-2 冯诺依曼的构想: ics/pa/ics_pa-4-2.md
-          - PA 4-3 编写不朽的传奇: ics/pa/ics_pa-4-3.md
+
+    - 计算机科学:
+      - 数据结构与算法:
+          - 数据结构与算法: ds/ds_pre.md
+      - 计算方法:
+          - 计算方法: csci/cm_pre.md
+      - 计算复杂性:
+          - 计算复杂性: csci/cc_pre.md
+      - 信息论基础:
+          - 信息论基础: csci/ib_pre.md
+        
+    - 计算机系统:
+      - ICS（计算机系统基础）: 
+          - ICS: ics/ics_pre.md
+          - ICS_Cheat_Sheet: ics/cheat_sheet.md
+          - ICS_理论试题选解:
+            - 第4章 程序的链接: ics/theory/ICS-04.md
+            - 第6章 层次结构存储系统: ics/theory/ICS-06.md
+            - 第7章 异常控制流: ics/theory/ICS-07.md
+            - 第8章 I/O操作的实现: ics/theory/ICS-08.md
+          - ICS_PA(x86): 
+            - 在PA开始之前（x86）: ics/ics_pa_pre.md
+            - PA 1-1 世界诞生的前夜: ics/pa/ics_pa-1-1.md
+            - PA 1-2 不停运算的机器: ics/pa/ics_pa-1-2.md
+            - PA 1-3 浮点运算的大门: ics/pa/ics_pa-1-3.md
+            - PA 2-1 简单复杂的机器: ics/pa/ics_pa-2-1.md
+            - PA 2-2 Linux中的文件: ics/pa/ics_pa-2-2.md
+            - PA 2-3 字符串求值: ics/pa/ics_pa-2-3.md
+            - PA 3-1 更快访问的追求: ics/pa/ics_pa-3-1.md
+            - PA 3-2 虚实交错的魔法: ics/pa/ics_pa-3-2.md
+            - PA 3-3 超越容量的界限: ics/pa/ics_pa-3-3.md
+            - PA 4-1 来自外部的声音: ics/pa/ics_pa-4-1.md
+            - PA 4-2 冯诺依曼的构想: ics/pa/ics_pa-4-2.md
+            - PA 4-3 编写不朽的传奇: ics/pa/ics_pa-4-3.md
+      - PTE（编译原理）:
+        - PTE: pte/pte_pre.md
+      - OS（操作系统）:
+        - OS: os/os_pre.md
+      - CA（计算机体系结构）:
+        - CA: ca/ca_pre.md
+    
+    - 计算机安全:
+      - 计算机安全: csecurity/cs_pre.md
+
+    - 人工智能与科研进展:
+      - 人工智能与科研进展: ai/ai_pre.md
   
 markdown_extensions:
   - pymdownx.highlight:

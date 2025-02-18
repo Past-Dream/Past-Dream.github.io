@@ -114,7 +114,6 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
     ```
 
 !!! bug "一个错误的实现"
-    或许在PA的漫漫长途上，一些错误再所难免，在PA3-3中，我给出了一个错误的实现，并在后面造成了灾难性的后果。
     ```
     void laddr_write(laddr_t laddr, size_t len, uint32_t data){
 	    assert(len == 1 || len == 2 || len == 4);

@@ -1,0 +1,265 @@
+<!DOCTYPE html><html><head>
+      <title>ICS-04</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\yifei\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.15\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h2 id="计算机系统基础第4章-程序的链接-习题选解">《计算机系统基础》第4章 程序的链接 习题选解 </h2>
+<hr>
+<h3 id="第3题">第3题 </h3>
+<p>链接器在生成可执行文件时需要完成符号解析，符号解析需要使用符号表。根据《计算机系统基础》第193-194页的内容，对于某个C程序模块m，包含在符号表中的符号有三种类型：全局符号（在m中被定义，在其他模块中引用）、外部符号（其他模块定义，在m中引用）、本地符号（在m中被定义，在m中引用，包括带static属性的函数名和全局变量名）。<br>
+假设一个C语言程序有两个源文件main.c和test.c，对于编译生成的可重定位目标文件test.o，有如下符号情况分析：<br>
+（1）extern int a[];指示编译器a是在其他地方(main)定义的且可以在当前文件中使用，属于外部符号因此存在于test.o的符号表中，定义模块为main.o，出现在test.o的.data节；<br>
+（2）int val = 0;表明val是在test.o中被定义的，同时注意到main.c的第8行使用了val，因此属于全局符号，且val被初始化，则它位于.data 段（若未初始化会位于.bss段）<br>
+（3）int sum()是一个函数名，目标代码位于.text节，且main.c调用了sum，因此属于全局符号<br>
+（4）i是test.o中的局部变量，是在运行时动态分配的，被分配在栈中，不位于test.o的符号表中<br>
+综上所述，表如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">是否在test.o的符号表中</th>
+<th style="text-align:center">定义模块</th>
+<th style="text-align:center">符号类型</th>
+<th style="text-align:center">节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">a</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">main.o</td>
+<td style="text-align:center">外部符号</td>
+<td style="text-align:center">.data</td>
+</tr>
+<tr>
+<td style="text-align:center">val</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">test.o</td>
+<td style="text-align:center">全局符号</td>
+<td style="text-align:center">.data</td>
+</tr>
+<tr>
+<td style="text-align:center">sum</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">test.o</td>
+<td style="text-align:center">全局符号</td>
+<td style="text-align:center">.text</td>
+</tr>
+<tr>
+<td style="text-align:center">i</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+</tr>
+</tbody>
+</table>
+<h3 id="第4题">第4题 </h3>
+<p>与第三题相类似，分析得到如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">是否在swap.o的符号表中</th>
+<th style="text-align:center">定义模块</th>
+<th style="text-align:center">符号类型</th>
+<th style="text-align:center">节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">buf</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">main.o</td>
+<td style="text-align:center">外部符号</td>
+<td style="text-align:center">.data</td>
+</tr>
+<tr>
+<td style="text-align:center">bufp0</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">swap.o</td>
+<td style="text-align:center">全局符号</td>
+<td style="text-align:center">.data</td>
+</tr>
+<tr>
+<td style="text-align:center">bufp1</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">swap.o</td>
+<td style="text-align:center">本地符号</td>
+<td style="text-align:center">.bss</td>
+</tr>
+<tr>
+<td style="text-align:center">incr</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">swap.o</td>
+<td style="text-align:center">本地符号</td>
+<td style="text-align:center">.text</td>
+</tr>
+<tr>
+<td style="text-align:center">count</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">swap.o</td>
+<td style="text-align:center">本地符号</td>
+<td style="text-align:center">.data</td>
+</tr>
+<tr>
+<td style="text-align:center">swap</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">swap.o</td>
+<td style="text-align:center">全局符号</td>
+<td style="text-align:center">.text</td>
+</tr>
+<tr>
+<td style="text-align:center">temp</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+</tr>
+</tbody>
+</table>
+<p>其中需要注意的在上一题中没有出现之处有：<br>
+（1）在上一题中两个全局符号均被main.o使用，但是本题中bufp0并未被其他模块引用，但是其不是在函数内部定义的且没有使用static关键字修饰，即使其他模块实际上并没有调用或引用这个符号，仍然视为一个全局符号。<br>
+（2）bufp1在定义时未初始化，，因此位于.bss节。根据《计算机系统基础》第188页，未初始化变量没有具体的值，无须在目标文件中分配用于保存值的空间（在目标文件中不占据实际磁盘空间，仅为一个占位符）。<br>
+（3）在函数中使用static int count = 0; 创建一个静态局部变量，其空间不被分配在栈中，是本地符号；在其被创建后，再次调用函数incr()时count不会再被初始化为0，因此可以达到incr()函数的计数效果。</p>
+<h3 id="第5题">第5题 </h3>
+<p>（1）根据《计算机系统基础》第196页内容可知全局符号的强弱性：函数名和已初始化的全局变量为强符号，未初始化的全局变量名为弱符号。<br>
+由此可知，上述main.c中(unsigned)x、z、proc1、main为强符号，y为弱符号；proc1.c中proc1为强符号，(double)x为弱符号<br>
+（2）程序执行后的结果为x = 0, z = 0。<br>
+执行proc1函数前后在地址&amp;x, &amp;z存放的内容如下（(double)-1.5的机器数为0xBFF8 0000 0000 0000）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">地址</th>
+<th style="text-align:center">proc1执行前</th>
+<th style="text-align:center">proc1执行后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&amp;x</td>
+<td style="text-align:center">01 01 00 00</td>
+<td style="text-align:center">00 00 00 00</td>
+</tr>
+<tr>
+<td style="text-align:center">&amp;z</td>
+<td style="text-align:center">02 00 &nbsp; / &nbsp; /</td>
+<td style="text-align:center">00 00 F8 BF</td>
+</tr>
+</tbody>
+</table>
+<p>第三行修改为short y = 1, z = 2;后，执行proc1函数前后在地址&amp;x, &amp;y, &amp;z存放的内容如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">地址</th>
+<th style="text-align:center">proc1执行前</th>
+<th style="text-align:center">proc1执行后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&amp;x</td>
+<td style="text-align:center">01 01 00 00</td>
+<td style="text-align:center">00 00 00 00</td>
+</tr>
+<tr>
+<td style="text-align:center">&amp;y, &amp;z</td>
+<td style="text-align:center">01 00 02 00</td>
+<td style="text-align:center">00 00 F8 BF</td>
+</tr>
+</tbody>
+</table>
+<p>因此程序执行后的结果为x = 0, z = -16392。<br>
+（3）一种可能的修改方式如下：</p>
+<pre data-role="codeBlock" data-info="c" class="language-c c"><code><span class="token comment">/*proc1.c*/</span>
+<span class="token keyword keyword-static">static</span> <span class="token keyword keyword-double">double</span> x<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">proc1</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    x <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1.5</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><h3 id="第6题3">第6题（3） </h3>
+<p>①REF(m1.main)-&gt;DEF()  强符号main在m1中定义，m1中不存在对main函数的调用<br>
+②REF(m2.main)-&gt;DEF(m1.main)<br>
+③REF(m1.p1)-&gt;DEF(m2.p1)<br>
+④REF(m1.x)-&gt;DEF()  m1中x在main函数中定义，是局部符号，不存在关联<br>
+⑤REF(m2.x)-&gt;DEF(m2.x)</p>
+<h3 id="第7题">第7题 </h3>
+<p>在两个目标模块m1和m2中，出现了两处关于全局符号main的定义。其中m1中main为强符号，符号类型为函数；m2中main为弱符号，符号类型为变量。根据《计算机系统基础》书第196页链接器处理多重定义符号的规则：<br>
+（1）强符号不能被多次定义，否则链接错误<br>
+（2）若一个符号被说明为一次强符号定义和多次弱符号定义，按强符号定义为准<br>
+（3）若有多个弱符号定义，则任选其中一个<br>
+则依据第二条规则，main会按照m1中的强符号定义处理。且函数初始指令一般如下（引用了Lab1-5的反汇编结果）</p>
+<pre data-role="codeBlock" data-info="Am" class="language-am Am"><code>0000000000400900 &lt;seek&gt;:
+  400900:	55                  push   %rbp
+  400901:	48 89 e5            mov    %rsp,%rbp
+  400904:	48 83 ec 10         sub    $0x10,%rsp
+</code></pre><p>其中48是REX前缀。考虑到lab实验为64位，则main函数前两条指令为</p>
+<pre data-role="codeBlock" data-info="Am" class="language-am Am"><code>0000000000000000 &lt;main&gt;:
+  000000:	55                  push   %ebp
+  000001:	89 e5               mov    %esp,%ebp
+</code></pre><p>则会输出0x5589\n的结果。</p>
+<h3 id="第8题">第8题 </h3>
+<p>使用objdump显示可执行目标文件程序头表的可读写数据段，发现可执行目标文件中的数据长度和虚拟地址空间中的存储区大小之间相差了28字节，可能的原因如下：<br>
+在可执行目标文件中描述的可读写数据段是由所有可重定位目标文件中的.data段合并生产的.data节、所有可重定位目标文件中的.bss段合并生产的.bss节组成。<br>
+根据《计算机系统基础》第188页，未初始化变量没有具体的值，无须在目标文件中分配用于保存值的空间（在目标文件中不占据实际磁盘空间，仅为一个占位符）。<br>
+因此，虚拟存储空间长度为0x104字节的可读写数据段中，.data节长度为0xe8，为已初始化值的存储空间；后28字节为未初始化变量所在区域，因此使可执行目标文件中的数据长度和虚拟地址空间中的存储区大小之间相差了28字节。</p>
+<h3 id="第9题">第9题 </h3>
+<p>根据《计算机系统基础》第198-201页的内容，符号解析过程维护了三个集合：E（将被合并到一起组成可执行文件的所有目标文件的集合）、U（未解析符号的集合）、D（已被加入E所有目标文件中定义符号的集合）。对于扫描的.o文件，将其加入E，把其中未解析符号加入U，把定义符号加入D（把默认静态链接库加入到输入文件列表末尾）。对于扫描的静态库文件，将当前U中所有符号与静态库中所有目标模块依次匹配，并将匹配到的对应模块加入E，将匹配到的符号从U转移到D，同时将本模块中未定义的符号加入到U把默认静态链接库加入到输入文件列表末尾），迭代匹配至U和D不再变化。<br>
+特别地，书中给出了如下两个静态库目标模块有相互引用关系的例子：func.o调用了静态库libx.a中的函数，libx.a中调用了liby.a中的函数，且liby.a中调用了libx.a中的函数，可以通过在命令行中重复静态库文件名链接，如下：</p>
+<pre data-role="codeBlock" data-info="Cmd" class="language-cmd Cmd"><code>gcc -static -o myfunc func.o libx.a liby.a libx.a
+</code></pre><p>同时，命令中使用-static选项指示链接器生成一个完全链接的可执行目标文件（能直接加载到存储器执行，不需要再动态链接到其他应用或模块）。<br>
+综上所述，<br>
+（1）一个可能符合要求的命令行如下：</p>
+<pre data-role="codeBlock" data-info="Cmd" class="language-cmd Cmd"><code>gcc -static -o p p.o libx.a liby.a
+</code></pre><p>（2）一个可能符合要求的命令行如下：</p>
+<pre data-role="codeBlock" data-info="Cmd" class="language-cmd Cmd"><code>gcc -static -o p p.o libx.a liby.a libx.a
+</code></pre><p>（3）一个可能符合要求的命令行如下：</p>
+<pre data-role="codeBlock" data-info="Cmd" class="language-cmd Cmd"><code>gcc -static -o p p.o libx.a liby.a libx.a libz.a
+</code></pre><h3 id="第10题">第10题 </h3>
+<p>我们指出：main.o的.text节中需重定位的符号名有swap，相对于.text节起始位置偏移量为0x7，所在指令行号为6（按照图4.17所标示的行号）。<br>
+根据第7行，重定位方式为R_386_PC32（PC相对地址方式）。重定位前内容对应偏移量0x7-0xa四字节内容，为0xfffffffc（-4）。重定位后，指向swap函数的起始地址，其中重定位值的计算过程如下：<br>
+首先，可以计算出main最后一条指令地址：<br>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>0</mn><mi>x</mi><mn>8048386</mn><mo>+</mo><mn>0</mn><mi>x</mi><mn>12</mn><mo>=</mo><mn>0</mn><mi>x</mi><mn>8048398</mn></mrow><annotation encoding="application/x-tex">0x8048386 + 0x12 = 0x8048398</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0</span><span class="mord mathnormal">x</span><span class="mord">8048386</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span><span class="mord mathnormal">x</span><span class="mord">12</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span><span class="mord mathnormal">x</span><span class="mord">8048398</span></span></span></span></span><br>
+由题目知，swap函数紧跟在main后，首地址按4字节边界对齐，则swap函数起始地址为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mi>x</mi><mn>8048398</mn></mrow><annotation encoding="application/x-tex">0x8048398</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span><span class="mord mathnormal">x</span><span class="mord">8048398</span></span></span></span>。<br>
+根据《计算机系统基础》第203页的内容，IA-32中转移目标地址（有效地址）计算公式为：<br>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>转移目标地址</mtext><mo>=</mo><mi>P</mi><mi>C</mi><mo>+</mo><mtext>偏移地址</mtext></mrow><annotation encoding="application/x-tex">转移目标地址 = PC + 偏移地址</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord cjk_fallback">转移目标地址</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">PC</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord cjk_fallback">偏移地址</span></span></span></span></span><br>
+call指令中重定位值为偏移地址，因此重定位值：<br>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>0</mn><mi>x</mi><mn>8048398</mn><mo>−</mo><mo stretchy="false">(</mo><mn>0</mn><mi>x</mi><mn>8048386</mn><mo>+</mo><mn>0</mn><mi>x</mi><mn>7</mn><mo>+</mo><mn>0</mn><mi>x</mi><mn>4</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mi>x</mi><mn>7</mn></mrow><annotation encoding="application/x-tex">0x8048398 - (0x8048386 + 0x7 + 0x4) = 0x7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0</span><span class="mord mathnormal">x</span><span class="mord">8048398</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mord mathnormal">x</span><span class="mord">8048386</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0</span><span class="mord mathnormal">x</span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord mathnormal">x</span><span class="mord">4</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span><span class="mord mathnormal">x</span><span class="mord">7</span></span></span></span></span><br>
+于是重定位后内容应为0x00000007,即第6行指令变为</p>
+<pre data-role="codeBlock" data-info="Am" class="language-am Am"><code>6     6:  e8 07 00 00 00        call 0x8048398 &lt;swap&gt;
+</code></pre><hr>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

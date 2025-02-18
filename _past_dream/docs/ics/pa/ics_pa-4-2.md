@@ -148,7 +148,7 @@ void ide_write(uint8_t *buf, uint32_t offset, uint32_t len)
 	}
 }
 ```
-!!! example "一个投机取巧的实现"
+!!! note "一个投机取巧的实现"
     事实上，用如下的代码也可以实现对硬盘读写的模拟，但是，这并不是一个好的实现。
     ```C
     #ifdef HAS_DEVICE_IDE
