@@ -4,17 +4,22 @@ site_url: https://pastdream.github.io/
 nav:
     - Home: index.md
 
-    - 计算机科学:
+    - 计算机理论:
       - 数据结构与算法:
           - 数据结构与算法: ds/ds_pre.md
       - 计算方法:
-          - 计算方法: csci/cm_pre.md
+          - 计算方法: tcs/cm_pre.md
       - 计算复杂性:
-          - 计算复杂性: csci/cc_pre.md
+          - 计算复杂性: tcs/cc_pre.md
       - 信息论基础:
-          - 信息论基础: csci/ib_pre.md
+          - 信息论基础: tcs/ib_pre.md
         
     - 计算机系统:
+      - DLCO（数字逻辑与计算机组成）: 
+          - DLCO: dlco/dlco_pre.md
+          - Logisim仿真实验:
+            - 故事开始的地方: dlco/lab_pre.md
+            - Logisim使用基础: dlco/logisim.md
       - ICS（计算机系统基础）: 
           - ICS: ics/ics_pre.md
           - ICS_Cheat_Sheet: ics/cheat_sheet.md
