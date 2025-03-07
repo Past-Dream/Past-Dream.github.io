@@ -43,7 +43,7 @@ typedef struct Cacheline{
 ```
 其中`valid_bit`为有效位，`tag`为标记位，`data`为数据位。
 从`cache`的存储空间大小为64KB，`cache`的block存储空间大小为64B，所以`cache`的`set`个数为64KB/64B=1024，`cache`的`way`个数为8，所以`cache`的`index`个数为1024/8=128，`cache`的`offset`个数为64/8=8。
-在`nemu/src/memory/mmu/cache.c`中给出了`cache`的初始化函数`init_cache()`如下
+在`nemu/src/memory/mmu/cache.c`中`cache`的初始化函数`init_cache()`如下
 ```c
 #ifdef CACHE_ENABLED
 CacheLine cache[1024];
@@ -54,3 +54,12 @@ void init_cache()
 	}
 }
 ```
+
+接下来，我们需要实现`cache`及其`read`和`write`函数，注意需要符合要求，并在开启`cache`时调用`cache`的`read`和`write`函数通过测试样例。
+
+!!! success "PA 3-1阶段结束"
+    我不问弱水三千几人能为我怨
+
+    轮回百转
+
+    只求陪你续前缘
