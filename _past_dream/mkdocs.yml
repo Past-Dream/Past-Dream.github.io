@@ -7,14 +7,17 @@ nav:
     - TCS:
       - 计算复杂性:
           - 计算复杂性: tcs/cc_pre.md
+          - 习题（一）: tcs/cc/HW-01.md
       - 信息论基础:
           - 信息论基础: tcs/eit.md
+          - 习题（一）: tcs/eit/HW-01.md
         
     - DLCO: 
         - DLCO: dlco/dlco_pre.md
         - Logisim仿真实验:
           - 故事开始的地方: dlco/lab_pre.md
           - Logisim使用基础: dlco/logisim.md
+          - 实验反馈: dlco/实验反馈.md
     - ICS: 
         - ICS: ics/ics_pre.md
         - ICS_Cheat_Sheet: ics/cheat_sheet.md
@@ -41,11 +44,16 @@ nav:
       - PTC: ptc/ptc_pre.md
     - OS:
       - OS: os/os_pre.md
+      - 实验导论:
+        - 实验导论: os/lab/0_lab_pre.md
+        - 命令行参数解析: os/lab/1_parseCommandLine.md
     - OI:
       - OI: oi/oi_pre.md
 
     - 人工智能与科研进展:
       - 人工智能与科研进展: ai/ai_pre.md
+      - 科研实践（一）:
+        - S1: ai/rp1.md
   
 markdown_extensions:
   - pymdownx.highlight:
